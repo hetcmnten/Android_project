@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".poster.Poster"
     android:orientation="vertical">
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:text="Hello world"/>
-    <Button
+        android:id="@+id/edit"
+        android:text="Hello world"
+        android:hint="input text here"/>
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/chat"
-        android:id="@+id/speech"/>
+        android:id="@+id/imageBut"
+        android:src="@drawable/chat"/>
 </LinearLayout>
