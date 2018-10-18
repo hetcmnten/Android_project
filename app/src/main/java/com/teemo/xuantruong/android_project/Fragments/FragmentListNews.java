@@ -1,4 +1,4 @@
-package com.teemo.xuantruong.android_project.fragments;
+package com.teemo.xuantruong.android_project.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
