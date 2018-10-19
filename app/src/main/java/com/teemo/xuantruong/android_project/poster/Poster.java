@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.connectJson.Downloadmp3;
 import com.teemo.xuantruong.android_project.connectJson.MyHttpHandler;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 
@@ -44,15 +45,15 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         edit= (EditText) findViewById(R.id.edit);
         name= (TextView) findViewById(R.id.name);
         content= (TextView) findViewById(R.id.content);
-        MediaPlayer mediaPlayer= new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        MediaPlayer mediaPlayer= new MediaPlayer();
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        try {
+//            mediaPlayer.setDataSource(url);
+//            mediaPlayer.prepare();
+//            mediaPlayer.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         speak= new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -60,7 +61,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             public void onInit(int i) {
                 if (i == TextToSpeech.SUCCESS)
                 {
-                    result= speak.setLanguage(Locale.UK);
+                    result= speak.setLanguage(Locale.ENGLISH);
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"feature not support  in your device",Toast.LENGTH_SHORT).show();
@@ -82,6 +83,17 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             speak.speak(text,TextToSpeech.QUEUE_FLUSH,null);
             name.setText(poster_entity.getName_poster());
             content.setText(poster_entity.getContent_poster());
+            Downloadmp3 downloadmp3 = new Downloadmp3();
+            try {
+                JSONObject jsonObject= downloadmp3.download();
+                content.setText(jsonObject.getString("async"));
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(),
+                        e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -95,24 +107,24 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         super.onDestroy();
     }
 
-    // json ->  object
+
+    // json ->  object : show poster
     class  MyAsyncTask extends AsyncTask<Void,Void,Void>{
 
 
             @Override
         protected Void doInBackground(Void... voids) {
 
-                String url1 = "http://172.25.11.198:8082/select_element.php?limit=10002";
+                String url1 = "http://192.168.0.104:8082/select_element.php?limit=10002";
                 String jsonStr= myhttp.makeServiceCall(url1);
-
                 if (jsonStr != null) {
                     try {
                         JSONArray aray = new JSONArray(jsonStr);
                         for (int i = 0; i < aray.length(); i++) {
                             JSONObject object = aray.getJSONObject(i);
-                            String id = object.getString("phone");
+                            String phone = object.getString("phone");
                             String name= object.getString("name");
-                            poster_entity.setName_poster(id);
+                            poster_entity.setName_poster(phone);
                             poster_entity.setContent_poster(name);
                         }
                 } catch ( final JSONException e) {
@@ -137,5 +149,4 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
                 return null;
         }
     }
-
 }

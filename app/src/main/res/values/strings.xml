@@ -2,4 +2,5 @@
     <string name="app_name">Android_Project</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="key_api">AIzaSyCPYJ99XzGEUX73ZiK75fX5pAsdvu3w7Ok</string>
 </resources>
