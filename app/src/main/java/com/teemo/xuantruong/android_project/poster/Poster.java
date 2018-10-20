@@ -83,21 +83,22 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             speak.speak(text,TextToSpeech.QUEUE_FLUSH,null);
             name.setText(poster_entity.getName_poster());
             content.setText(poster_entity.getContent_poster());
-            Downloadmp3 downloadmp3 = new Downloadmp3();
-            try {
-                JSONObject jsonObject= downloadmp3.download();
-                content.setText(jsonObject.getString("async"));
-            } catch (IOException e) {
-                Toast.makeText(getApplicationContext(),
-                        e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+//            Downloadmp3 downloadmp3 = new Downloadmp3();
+//            try {
+//                JSONObject jsonObject= downloadmp3.download();
+//                content.setText(jsonObject.getString("async"));
+//            } catch (IOException e) {
+//                Toast.makeText(getApplicationContext(),
+//                        e.getMessage(),
+//                        Toast.LENGTH_LONG).show();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
     @Override
+
     protected void onDestroy() {
         if (speak !=null)
         {
@@ -115,18 +116,24 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             @Override
         protected Void doInBackground(Void... voids) {
 
-                String url1 = "http://192.168.0.104:8082/select_element.php?limit=10002";
+//                String url1 = "http://192.168.0.104:8082/select_element.php?limit=10002";
+                String url1 ="https://api.androidhive.info/contacts/";
                 String jsonStr= myhttp.makeServiceCall(url1);
+
                 if (jsonStr != null) {
                     try {
-                        JSONArray aray = new JSONArray(jsonStr);
-                        for (int i = 0; i < aray.length(); i++) {
-                            JSONObject object = aray.getJSONObject(i);
-                            String phone = object.getString("phone");
-                            String name= object.getString("name");
-                            poster_entity.setName_poster(phone);
-                            poster_entity.setContent_poster(name);
-                        }
+                        JSONObject jsonObject = new JSONObject(jsonStr);
+                        JSONArray jsonArray= jsonObject.getJSONArray("contacts");
+                        poster_entity.setName_poster(jsonArray.getJSONObject(3).get("email").toString());
+                        poster_entity.setContent_poster(jsonArray.getJSONObject(3).get("gender").toString());
+//                        JSONArray aray = new JSONArray(jsonStr);
+//                        for (int i = 0; i < aray.length(); i++) {
+//                            JSONObject object = aray.getJSONObject(i);
+//                            String phone = object.getString("phone");
+//                            String name= object.getString("name");
+//                            poster_entity.setName_poster(phone);
+//                            poster_entity.setContent_poster(name);
+//                        }
                 } catch ( final JSONException e) {
                         Log.e(TAG, "Json parsing error: " + e.getMessage());
                         runOnUiThread(new Runnable() {
