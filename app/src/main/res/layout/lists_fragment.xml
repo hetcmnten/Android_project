@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="List News"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textAlignment="center"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+      <ImageButton
+          android:id="@+id/btnImage"
+          android:layout_width="match_parent"
+          android:layout_height="160dp"
+          android:scaleType="centerCrop"
+          android:background="#2d2d2d"
+          android:src="@drawable/download"/>
+
+      <TextView
+          android:id="@+id/txtTitle1"
+          android:textColor="#2d2d2d"
+          android:textSize="20dp"
+          android:padding="5dp"
+          android:layout_marginTop="160dp"
+          android:layout_gravity="center"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:text="Tran Van Phong Fpt University "/>
+    </android.support.constraint.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/listNews"
+        android:layout_width="match_parent"
+        android:layout_height="297dp"
+        android:layout_marginTop="220dp"></ListView>
+</android.support.v7.widget.CardView>
