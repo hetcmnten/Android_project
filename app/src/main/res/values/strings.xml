@@ -16,4 +16,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="key_api">AIzaSyCPYJ99XzGEUX73ZiK75fX5pAsdvu3w7Ok</string>
 </resources>
