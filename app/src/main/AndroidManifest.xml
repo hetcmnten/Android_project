@@ -25,7 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".poster.Poster"></activity>
+        <activity android:name=".poster.Poster" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/source_layout" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
