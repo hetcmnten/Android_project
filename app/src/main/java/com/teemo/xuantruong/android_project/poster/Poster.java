@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -27,7 +28,7 @@ import java.io.IOException;
 
 public class Poster extends AppCompatActivity implements View.OnClickListener{
     private String TAG = Poster.class.getSimpleName();
-
+    private ImageView imageView1;
     private ImageButton imageBut;
     private MyHttpHandler myhttp = new MyHttpHandler();
     private TextView name, content;
@@ -42,10 +43,12 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_poster);
         imageBut= (ImageButton) findViewById(R.id.imageBut);
 
+        imageView1 =(ImageView) findViewById(R.id.image1);
+        // change image in imageview
+        imageView1.setImageResource(R.drawable.news);
         name= (TextView) findViewById(R.id.name);
         content= (TextView) findViewById(R.id.content);
         mediaPlayer = new MediaPlayer();
-
 
         imageBut.setOnClickListener(this);
         MyAsyncTask myAsyncTask = new  MyAsyncTask();
@@ -78,6 +81,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             else {
                 imageBut.setBackgroundResource(R.drawable.speech_bubble);
                 mediaPlayer.start();
+
             }
 
         }
@@ -92,7 +96,6 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
                     // get json poster
                     readJson();
                     String txt = name.getText().toString()+ " "+content.getText().toString();
-//                    String txt ="ahihi do ngoc";
                     // get link file mp3
                     String texturl = getapiTexttospeech.apiChangetexttomp3(txt);
                         // get json as json object
@@ -129,7 +132,6 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
                 JSONArray jsonArray= jsonObject.getJSONArray("contacts");
                 poster_entity.setName_poster(jsonArray.getJSONObject(3).get("email").toString());
                 poster_entity.setContent_poster(jsonArray.getJSONObject(3).get("gender").toString());
-
                 // get json ijnproject
 //                aray = new JSONArray(jsonStr);
 //                for (int i = 0; i < aray.length(); i++) {
