@@ -6,12 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".poster.Poster"
     android:orientation="vertical">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit"
-        android:text="Hello world"
-        android:hint="input text here"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
