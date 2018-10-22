@@ -6,20 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".poster.Poster"
     android:orientation="vertical">
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/name"/>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/cardview_dark_background"
+            android:textStyle="bold"
+            android:textSize="30px"
+            android:text="Giới thiệu TBT Nguyễn Phú Trọng để QH bầu làm Chủ tịch nước"/>
 
-    <TextView
+
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/content"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginLeft="20px"
+            android:id="@+id/imageBut"
+            android:background="@drawable/chat"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/datetime"
+            android:textSize="20px"
+            android:textStyle="italic"
+            android:text="yyyyy-mm-dd hh:mm:ss"
+            android:paddingLeft="20px"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageBut"
-        android:src="@drawable/chat"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:textColor="@color/cardview_dark_background"
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20px"
+            android:text="lớn như bom nổ rồi thấy người và xe máy nằm rải rác trên đoạn đường dài 50m"/>
+
+         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/content"
+             android:text="Trong số các nạn nhân bị thương, có 2 người bị thương nặng đang được cấp cứu tại Bệnh viện Nhân dân Gia Định.
+
+Đứng bên ngoài phòng cấp cứu, bà Trần Mỹ Lệ (63 tuổi, quận Bình Thạnh) mắt đỏ hoe, chắp tay cầu nguyện cho con bà là anh H.H.Đ.(42 tuổi) tai qua nạn khỏi.
+
+Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo anh Đ đang được cấp cứu tại Bệnh viện Nhân dân Gia Định
+
+“Chạy đến bệnh viện thì y tá nói con tôi bị gãy chân, bị thương nặng ở cổ. Khi đó, tôi thấy nó nằm trên băng ca nhưng người lờ đờ lắm. Nó thì thào nói con không biết gì cả”, bà Lệ nói trong lo lắng."/>
+
+</LinearLayout>
+
 </LinearLayout>

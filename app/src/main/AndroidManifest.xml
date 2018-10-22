@@ -22,7 +22,7 @@
             android:value="@integer/google_play_services_version"></meta-data>
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="@string/key_api"></meta-data>
-        <activity android:name=".MainActivity"
+        <activity android:name=".poster.Poster"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".poster.Poster" />
+        <!--<activity android:name=".poster.Poster" />-->
 
         <meta-data
             android:name="com.google.android.actions"
