@@ -1,10 +1,10 @@
-package com.teemo.xuantruong.android_project.Fragments;
+package com.teemo.xuantruong.android_project.fragments;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.teemo.xuantruong.android_project.Entity.News;
+import com.teemo.xuantruong.android_project.entity.News;
 import com.teemo.xuantruong.android_project.R;
 
 import java.util.ArrayList;
@@ -23,20 +23,48 @@ public class FragmentListNews extends Fragment{
     ArrayList<News> listNews = new ArrayList<>();
     ListView ListNews;
     TextView txtTile1;
-    public FragmentListNews(){}
+    public FragmentListNews(){
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.lists_fragment,container,false);
+        view = inflater.inflate(R.layout.fragment_listpost,container,false);
         txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
         setDataonArrayList();
         ListNews = (ListView) view.findViewById(R.id.listNews);
         txtTile1.setText(listNews.get(0).getTitle());
         NewsAdapter news = new NewsAdapter();
         ListNews.setAdapter(news);
+        Log.e("Creat","One Creat");
         return  view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
+        setDataonArrayList();
+        ListNews = (ListView) view.findViewById(R.id.listNews);
+        txtTile1.setText(listNews.get(0).getTitle());
+        NewsAdapter news = new NewsAdapter();
+        ListNews.setAdapter(news);
+        Log.e("Restore","One Restore");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e("Distroy","on destroy");
+    }
+
 
     public void setDataonArrayList(){
         News eachNews = new News(R.drawable.download+"","Người đàn ông nuôi hàng trăm con rồng Nam Mỹ ở Sài gòn","11h Trước");
@@ -83,6 +111,4 @@ public class FragmentListNews extends Fragment{
             return itemView;
         }
     }
-
-
 }

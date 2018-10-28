@@ -1,22 +1,14 @@
-package com.teemo.xuantruong.android_project.Fragments;
+package com.teemo.xuantruong.android_project.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.teemo.xuantruong.android_project.Entity.Category;
-import com.teemo.xuantruong.android_project.Entity.News;
 import com.teemo.xuantruong.android_project.R;
 
 import java.util.ArrayList;
@@ -32,7 +24,7 @@ public class FragmentCategories extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.category_fragment,container,false);
+        view = inflater.inflate(R.layout.fragment_category,container,false);
 //        SetDataCategories();
 //        ListNews = (ListView) view.findViewById(R.id.recycler_id);
 //        RecyclerViewAdapter news = new RecyclerViewAdapter();
