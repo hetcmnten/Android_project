@@ -3,15 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 <group android:checkableBehavior="single">
+    <item android:id="@+id/nav_homepage"
+        android:icon="@drawable/ic_home"
+        android:title="Trang trủ"/>
+    <item android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_setting"
+        android:title="Thiết Lập chế độ đọc báo "/>
     <item android:id="@+id/nav_message"
         android:icon="@drawable/ic_email"
         android:title="Message"/>
     <item android:id="@+id/nav_account"
         android:icon="@drawable/ic_account"
-        android:title="Message"/>
-    <item android:id="@+id/nav_setting"
-        android:icon="@drawable/ic_setting"
-        android:title="Message"/>
+        android:title="Account"/>
+
     <item android:title="Communicate">
         <menu>
             <item android:id="@+id/nav_share"
