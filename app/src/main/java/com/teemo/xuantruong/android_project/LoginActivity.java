@@ -45,6 +45,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.login.widget.ProfilePictureView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
@@ -122,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         callbackManager = CallbackManager.Factory.create();
         //
         loginButton = (LoginButton) findViewById(R.id.loginFacebook);
-        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday"));
+        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday", "user_friends"));
         loginButton.setOnClickListener(this);
     }
 
@@ -156,20 +157,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
     }
-
+    String email, gender;
     private void result() {
         GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            // call json
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                Log.d("JSON:",response.getJSONObject().toString());
-            }
-        });
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.d("log: ", response.getJSONObject().toString());
+
+                        try {
+                            email =object.getString("email");
+                            gender = object.getString("first_name");
+                            mEmailView.setText(email);
+                            mPasswordView.setText(gender);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
         // get in formation in facebook
         Bundle parameter = new Bundle();
-        parameter.putString("fields","id,name,email,gender,birthday");
+        parameter.putString("fields","id,name,email,gender,birthday,first_name");
         graphRequest.setParameters(parameter);
         graphRequest.executeAsync();
+
     }
 
     @Override
