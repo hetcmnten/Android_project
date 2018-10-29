@@ -98,5 +98,6 @@
     <!-- id app faceboook-->
     <string name="facebook_app_id">251081535580971</string>
     <string name="facebook_login_protocol_scheme">fb251081535580971</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

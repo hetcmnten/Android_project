@@ -1,4 +1,4 @@
-package com.teemo.xuantruong.android_project.Adapters;
+package com.teemo.xuantruong.android_project.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

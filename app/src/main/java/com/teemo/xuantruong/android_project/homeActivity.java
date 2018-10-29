@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_setting:
                 Toast.makeText(HomeActivity.this,"SETTING FRAGMENT",Toast.LENGTH_LONG).show();
                 Log.d("setting ","select setting fragment");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentSetting()).commit();
+               // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentSetting()).commit();
                 break;
             case R.id.nav_homepage:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();

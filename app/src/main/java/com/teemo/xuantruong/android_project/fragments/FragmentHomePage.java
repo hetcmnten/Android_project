@@ -10,8 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
+
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
 
 public class FragmentHomePage extends Fragment {
     private AppBarLayout appBar;
