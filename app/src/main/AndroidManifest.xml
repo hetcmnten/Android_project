@@ -52,11 +52,12 @@
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/source_layout" />
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="Home page"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
 </manifest>

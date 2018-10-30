@@ -1,5 +1,6 @@
 package com.teemo.xuantruong.android_project.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,14 +19,14 @@ public class FragmentCategories extends Fragment {
     ListView ListNews;
     ArrayList<Category> listCat = new ArrayList<Category>();
     public FragmentCategories() {
-
+        SetDataCategories();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category,container,false);
-//        SetDataCategories();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
 //        ListNews = (ListView) view.findViewById(R.id.recycler_id);
 //        RecyclerViewAdapter news = new RecyclerViewAdapter();
 //        ListNews.setAdapter(news);
