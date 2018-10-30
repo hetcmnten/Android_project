@@ -27,8 +27,24 @@ public class FragmentHomePage extends Fragment {
     public View onCreateView( LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage,container,false);
         tabs = (TabLayout) view.findViewById(R.id.tablayout_id);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         viewPager = (ViewPager) view.findViewById(R.id.viewpaper_id);
-        final ViewPageAdapter adapter = new ViewPageAdapter(getChildFragmentManager());
+        final ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
         adapter.AddFragment(new FragmentListNews(),"TIN HOT");
         adapter.AddFragment(new FragmentCategories(),"THỂ LOẠI");
         adapter.AddFragment(new FragmentSources(),"NGUỒN BÁO");
@@ -39,6 +55,7 @@ public class FragmentHomePage extends Fragment {
 
     @Override
     public void onDestroyView() {
+
         super.onDestroyView();
     }
 

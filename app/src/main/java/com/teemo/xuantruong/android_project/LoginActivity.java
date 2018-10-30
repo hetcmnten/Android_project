@@ -35,15 +35,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.facebook.login.widget.ProfilePictureView;
+//import com.facebook.AccessToken;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.GraphRequest;
+//import com.facebook.GraphResponse;
+//import com.facebook.login.LoginResult;
+//import com.facebook.login.widget.LoginButton;
+//import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,9 +62,9 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, View.OnClickListener {
 
-    private CallbackManager callbackManager;
-    private LoginButton loginButton;
-    private ProfilePictureView profilePictureView;
+//    private CallbackManager callbackManager;
+//    private LoginButton loginButton;
+//    private ProfilePictureView profilePictureView;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -120,11 +120,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         // response message in server
-        callbackManager = CallbackManager.Factory.create();
-        //
-        loginButton = (LoginButton) findViewById(R.id.loginFacebook);
-        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday", "user_friends"));
-        loginButton.setOnClickListener(this);
+//        callbackManager = CallbackManager.Factory.create();
+
+//        loginButton = (LoginButton) findViewById(R.id.loginFacebook);
+//        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday"));
+//        loginButton.setOnClickListener(this);
     }
 
 
@@ -137,55 +137,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     //
     private  void setLoginFacebook(){
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            // when login is success
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-             // TODO: 10/28/2018
-                result();
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
+//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            // when login is success
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//
+//             // TODO: 10/28/2018
+//                result();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//
+//            }
+//        });
     }
     String email, gender;
     private void result() {
-        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.d("log: ", response.getJSONObject().toString());
-
-                        try {
-                            email =object.getString("email");
-                            gender = object.getString("first_name");
-                            mEmailView.setText(email);
-                            mPasswordView.setText(gender);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+//        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//            // call json
+//            @Override
+//            public void onCompleted(JSONObject object, GraphResponse response) {
+//                Log.d("JSON:",response.getJSONObject().toString());
+//            }
+//        });
         // get in formation in facebook
         Bundle parameter = new Bundle();
-        parameter.putString("fields","id,name,email,gender,birthday,first_name");
-        graphRequest.setParameters(parameter);
-        graphRequest.executeAsync();
-
+        parameter.putString("fields","id,name,email,gender,birthday");
+      //  graphRequest.setParameters(parameter);
+      //  graphRequest.executeAsync();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+       // callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
     private void populateAutoComplete() {
@@ -433,7 +424,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.requestFocus();
             }
         }
-
         @Override
         protected void onCancelled() {
             mAuthTask = null;

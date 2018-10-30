@@ -23,8 +23,10 @@ public class FragmentListNews extends Fragment{
     ArrayList<News> listNews = new ArrayList<>();
     ListView ListNews;
     TextView txtTile1;
+    NewsAdapter news;
     public FragmentListNews(){
-
+        news = new NewsAdapter();
+        setDataonArrayList();
     }
 
     @Nullable
@@ -32,12 +34,10 @@ public class FragmentListNews extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_listpost,container,false);
         txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
-        setDataonArrayList();
         ListNews = (ListView) view.findViewById(R.id.listNews);
         txtTile1.setText(listNews.get(0).getTitle());
-        NewsAdapter news = new NewsAdapter();
         ListNews.setAdapter(news);
-        Log.e("Creat","One Creat");
+        Log.d("Creat","One Creat");
         return  view;
     }
 
@@ -50,19 +50,20 @@ public class FragmentListNews extends Fragment{
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
-        setDataonArrayList();
-        ListNews = (ListView) view.findViewById(R.id.listNews);
-        txtTile1.setText(listNews.get(0).getTitle());
-        NewsAdapter news = new NewsAdapter();
-        ListNews.setAdapter(news);
-        Log.e("Restore","One Restore");
+//        txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
+//        setDataonArrayList();
+//        ListNews = (ListView) view.findViewById(R.id.listNews);
+//        txtTile1.setText(listNews.get(0).getTitle());
+//        NewsAdapter news = new NewsAdapter();
+//        ListNews.setAdapter(news);
+        Log.d("Restore","One Restore");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.e("Distroy","on destroy");
+
+        Log.d("Distroy","on destroy");
     }
 
 
