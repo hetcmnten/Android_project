@@ -24,14 +24,14 @@ public class FragmentHomePage extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView( LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage,container,false);
         tabs = (TabLayout) view.findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) view.findViewById(R.id.viewpaper_id);
         final ViewPageAdapter adapter = new ViewPageAdapter(getChildFragmentManager());
         adapter.AddFragment(new FragmentListNews(),"TIN HOT");
         adapter.AddFragment(new FragmentCategories(),"THỂ LOẠI");
-        adapter.AddFragment(new FragmentCategories(),"NGUỒN BÁO");
+        adapter.AddFragment(new FragmentSources(),"NGUỒN BÁO");
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
         return view;

@@ -11,14 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.teemo.xuantruong.android_project.Entity.Category;
+import com.teemo.xuantruong.android_project.entity.Category;
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.entity.Category;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
-    private ArrayList<com.teemo.xuantruong.android_project.Entity.Category> listCate;
+    private ArrayList<com.teemo.xuantruong.android_project.entity.Category> listCate;
 
     public RecyclerViewAdapter(Context mContext, ArrayList<Category> listCate) {
         this.mContext = mContext;

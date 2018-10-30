@@ -1,4 +1,4 @@
-package com.teemo.xuantruong.android_project.Entity;
+package com.teemo.xuantruong.android_project.entity;
 
 public class Category {
     private String title;
