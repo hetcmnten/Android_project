@@ -19,14 +19,18 @@ import android.widget.TextView;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
 import com.teemo.xuantruong.android_project.connectJson.MyHttpHandler;
+import com.teemo.xuantruong.android_project.entity.News;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-public class Poster extends AppCompatActivity implements View.OnClickListener{
+public class Poster extends AppCompatActivity implements View.OnClickListener, Serializable {
     private String TAG = Poster.class.getSimpleName();
     private ImageView imageView1;
     private ImageButton imageBut;
@@ -36,10 +40,17 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
     private  MediaPlayer mediaPlayer;
     private  String text1;
+    private ArrayList<News> selectListPost = new ArrayList<>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //get data
+        Bundle bdl = getIntent().getExtras();
+        selectListPost = (ArrayList<News>) bdl.getSerializable("Data");
+        int realPost = bdl.getInt("position");
+
+
         setContentView(R.layout.activity_poster);
         imageBut= (ImageButton) findViewById(R.id.imageBut);
 
@@ -47,7 +58,12 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         // change image in imageview
         imageView1.setImageResource(R.drawable.news);
         name= (TextView) findViewById(R.id.name);
+
+        name.setText(""+selectListPost.get(realPost).getTitle());
+
+
         content= (TextView) findViewById(R.id.content);
+        content.setText(""+selectListPost.get(realPost).getConttent());
         mediaPlayer = new MediaPlayer();
 
         imageBut.setOnClickListener(this);

@@ -1,9 +1,12 @@
 package com.teemo.xuantruong.android_project.entity;
 
-public class News {
+import java.io.Serializable;
+
+public class News implements Serializable {
     private String imageName;
     private String title;
     private String time;
+    private String conttent;
 
     public News() {
     }
@@ -36,5 +39,20 @@ public class News {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public News(String imageName, String title, String time, String conttent) {
+        this.imageName = imageName;
+        this.title = title;
+        this.time = time;
+        this.conttent = conttent;
+    }
+
+    public String getConttent() {
+        return conttent;
+    }
+
+    public void setConttent(String conttent) {
+        this.conttent = conttent;
     }
 }
