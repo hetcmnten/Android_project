@@ -41,6 +41,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener, S
     private  MediaPlayer mediaPlayer;
     private  String text1;
     private ArrayList<News> selectListPost = new ArrayList<>() ;
+    boolean imagePlay = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener, S
 
         imageView1 =(ImageView) findViewById(R.id.image1);
         // change image in imageview
-        imageView1.setImageResource(R.drawable.news);
+        //imageView1.setImageResource(R.drawable.news);
         name= (TextView) findViewById(R.id.name);
 
         name.setText(""+selectListPost.get(realPost).getTitle());
@@ -89,15 +90,19 @@ public class Poster extends AppCompatActivity implements View.OnClickListener, S
         if (view.getId() == R.id.imageBut) {
 
             // play mediaplayer
+
+            if(imagePlay){
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
+            }else {
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
+            }
+            imagePlay=!imagePlay;
             if (mediaPlayer.isPlaying()) {
-                imageBut.setBackgroundResource(R.drawable.chat);
                 mediaPlayer.pause();
             }
             // pause mediaplayer
             else {
-                imageBut.setBackgroundResource(R.drawable.speech_bubble);
                 mediaPlayer.start();
-
             }
 
         }
