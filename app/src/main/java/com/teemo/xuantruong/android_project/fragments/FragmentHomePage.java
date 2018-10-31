@@ -44,7 +44,7 @@ public class FragmentHomePage extends Fragment {
             }
         });
         viewPager = (ViewPager) view.findViewById(R.id.viewpaper_id);
-        final ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
+        final ViewPageAdapter adapter = new ViewPageAdapter(getChildFragmentManager());
         adapter.AddFragment(new FragmentListNews(),"TIN HOT");
         adapter.AddFragment(new FragmentCategories(),"THỂ LOẠI");
         adapter.AddFragment(new FragmentSources(),"NGUỒN BÁO");

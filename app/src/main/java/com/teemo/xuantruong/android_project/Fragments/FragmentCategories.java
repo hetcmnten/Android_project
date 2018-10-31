@@ -9,11 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.teemo.xuantruong.android_project.Entity.Category;
-import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewAdapter;
+import com.teemo.xuantruong.android_project.entity.Category;
+import com.teemo.xuantruong.android_project.R;
 
 import java.util.ArrayList;
 
@@ -30,9 +31,8 @@ public class FragmentCategories extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category,container,false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
-//        ListNews = (ListView) view.findViewById(R.id.recycler_id);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),listCat);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), listCat);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(recyclerViewAdapter);
         return view;
     }
@@ -47,7 +47,4 @@ public class FragmentCategories extends Fragment {
     }
 
 
-
 }
-
-

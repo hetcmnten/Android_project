@@ -1,9 +1,6 @@
 package com.teemo.xuantruong.android_project.poster;
 
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 
 import android.os.AsyncTask;
@@ -27,6 +24,7 @@ import com.google.gson.JsonArray;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
 import com.teemo.xuantruong.android_project.connectJson.MyHttpHandler;
+import com.teemo.xuantruong.android_project.entity.News;
 import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 
@@ -34,22 +32,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Poster extends AppCompatActivity implements View.OnClickListener{
     private String TAG = Poster.class.getSimpleName();
     private ImageView imageView1;
     private ImageButton imageBut;
     private MyHttpHandler myhttp = new MyHttpHandler();
-    private TextView name, content, username;
-    private Poster_entity poster_entity = new Poster_entity();
+    private TextView name, content;
+    private Poster_entity poster_entity =  new Poster_entity();
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
     private  MediaPlayer mediaPlayer;
     private  String text1;
+    private ArrayList<News> selectListPost = new ArrayList<>() ;
+    boolean imagePlay = true;
+
     private ProfilePictureView profile;
     private  String informationImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //get data
+        Bundle bdl = getIntent().getExtras();
+        selectListPost = (ArrayList<News>) bdl.getSerializable("Data");
+        int realPost = bdl.getInt("position");
+
+
         setContentView(R.layout.activity_poster);
         MyAsyncTask myAsyncTask = new  MyAsyncTask();
         myAsyncTask.execute();
@@ -63,7 +73,12 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
 //        imageView1.setMaxWidth(100);
 
         name= (TextView) findViewById(R.id.name);
+
+        name.setText(""+selectListPost.get(realPost).getTitle());
+
+
         content= (TextView) findViewById(R.id.content);
+        content.setText(""+selectListPost.get(realPost).getConttent());
         mediaPlayer = new MediaPlayer();
 
         imageBut.setOnClickListener(this);
@@ -94,6 +109,13 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         if (view.getId() == R.id.imageBut) {
 
             // play mediaplayer
+
+            if(imagePlay){
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
+            }else {
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
+            }
+            imagePlay=!imagePlay;
             if (mediaPlayer.isPlaying()) {
                 imageBut.setBackgroundResource(R.drawable.chat);
                 mediaPlayer.pause();
@@ -102,6 +124,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             else {
                 imageBut.setBackgroundResource(R.drawable.speech_bubble);
                 mediaPlayer.start();
+
             }
 
         }
@@ -148,33 +171,21 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
     }
     // read json in activity
     private void readJson() throws  JSONException {
-        // json test when have link json
-//            String url1 ="https://api.androidhive.info/contacts/";
+        // json test
+        String url1 ="https://api.androidhive.info/contacts/";
             // get jproject
 //        String url1 = "http://192.168.0.104:8082/select_element.php?limit=10002";
-//            String jsonStr = myhttp.makeServiceCall(url1);
+        String jsonStr = myhttp.makeServiceCall(url1);
 //         json project
-//        if (jsonStr != null) {
-//            JSONArray aray = null;
+        if (jsonStr != null) {
+            JSONArray aray = null;
             try {
                 // test
-//                JSONObject jsonObject = new JSONObject(jsonStr);
-//                JSONArray jsonArray= jsonObject.getJSONArray("contacts");
-//
-//                poster_entity.setContent_poster(jsonArray.getJSONObject(3).get("gender").toString());
-                // read json in database
-                ReadJsonDB readJsonDB = new ReadJsonDB();
-                // show json in String
-                String json = readJsonDB.ConnectJson();
-
-                JSONArray jsonArray1 = new JSONArray(json);
-                for (int i=0;i<jsonArray1.length();i++){
-                    JSONObject object = jsonArray1.getJSONObject(i);
-                    name.setText(object.getString("title"));
-                    informationImage = object.getString("imgConverted");
-                }
-
-                // get json inproject
+                JSONObject jsonObject = new JSONObject(jsonStr);
+                JSONArray jsonArray= jsonObject.getJSONArray("contacts");
+                poster_entity.setName_poster(jsonArray.getJSONObject(3).get("email").toString());
+                poster_entity.setContent_poster(jsonArray.getJSONObject(3).get("gender").toString());
+                // get json ijnproject
 //                aray = new JSONArray(jsonStr);
 //                for (int i = 0; i < aray.length(); i++) {
 //                    JSONObject object = aray.getJSONObject(i);
@@ -183,10 +194,9 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
 //                    poster_entity.setName_poster(phone);
 //                    poster_entity.setContent_poster(name);
 //                }
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
     }
-
 }
