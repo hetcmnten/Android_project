@@ -1,7 +1,9 @@
 package com.teemo.xuantruong.android_project;
 
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -99,6 +101,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 FraHomePage = new FragmentHomePage();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,FraHomePage).commit();
                 break;
+                // go login
+            case  R.id.nav_account:
+                Intent intent = new Intent(this.getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+
             default:
                 FraHomePage = new FragmentHomePage();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, FraHomePage).commit();
