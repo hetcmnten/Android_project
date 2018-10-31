@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.teemo.xuantruong.android_project.entity.Category;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewAdapter;
+import com.teemo.xuantruong.android_project.entity.Category;
 
 import java.util.ArrayList;
 
