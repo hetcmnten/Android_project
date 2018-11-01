@@ -1,8 +1,7 @@
 package com.teemo.xuantruong.android_project;
 
 
-import android.app.Activity;
-import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,22 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.app.Fragment;
 
 import com.teemo.xuantruong.android_project.fragments.FragmentHomePage;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static int SPLASH_TIME_OUT= 2000;
+    public TabLayout tabLayout;
+    public AppBarLayout appBarLayout;
+    public ViewPager viewPager;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView ndrawer;
-    private FragmentHomePage FraHomePage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,56 +60,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        MenuItem myActionMenuItem = menu.findItem( R.id.action_search);
-        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-//                if (TextUtils.isEmpty(newText)) {
-//                    adapter.filter("");
-//                    listView.clearTextFilter();
-//                } else {
-//                    adapter.filter(newText);
-//                }
-                Bundle bundle = new Bundle();
-                bundle.putString("edtSearch", "From Homepage");
-
-                return true;
-            }
-        });
-
-        return true;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_setting:
-                Toast.makeText(HomeActivity.this,"SETTING FRAGMENT",Toast.LENGTH_LONG).show();
-                Log.d("setting ","select setting fragment");
-                break;
-            case R.id.nav_homepage:
-                FraHomePage = new FragmentHomePage();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,FraHomePage).commit();
-                break;
-                // go login
-            case  R.id.nav_account:
-                Intent intent = new Intent(this.getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(this,SettingActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_homepage:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();
+                break;
             default:
-                FraHomePage = new FragmentHomePage();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, FraHomePage).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
