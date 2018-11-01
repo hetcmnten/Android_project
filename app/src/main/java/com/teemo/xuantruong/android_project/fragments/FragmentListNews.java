@@ -59,15 +59,15 @@ public class FragmentListNews extends Fragment implements Serializable {
                     }
                     realPosition=0;
                 }else if((position+1)%3==0){
-                    for (int i = 0; i <3 ; i++) {
+                    for (int i = 2; i >=0 ; i--) {
                         selectListPost.add(listNews.get(position-i));
                     }
                     realPosition=selectListPost.size()-1;
                 }else {
-                    int from = sizePost/position;
+                    int from = position/3;
 
                     for (int i = from*3; i <(from+1)*3 ; i++) {
-                        selectListPost.add(listNews.get(from));
+                        selectListPost.add(listNews.get(i));
                         if(i==position){
                             realPosition = selectListPost.size()-1;
                         }
@@ -75,7 +75,7 @@ public class FragmentListNews extends Fragment implements Serializable {
                 }
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), Poster.class);
-                intent.getIntExtra("position", realPosition);
+                intent.putExtra("position", realPosition);
                 intent.putExtra("Data",selectListPost);
                 startActivity(intent);
             }
