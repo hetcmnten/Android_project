@@ -9,22 +9,32 @@ import android.speech.tts.TextToSpeech;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import com.facebook.FacebookSdk;
+import com.facebook.login.widget.ProfilePictureView;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
 import com.teemo.xuantruong.android_project.connectJson.MyHttpHandler;
+import com.teemo.xuantruong.android_project.entity.News;
+import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Poster extends AppCompatActivity implements View.OnClickListener{
     private String TAG = Poster.class.getSimpleName();
@@ -36,23 +46,49 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
     private  MediaPlayer mediaPlayer;
     private  String text1;
+    private ArrayList<News> selectListPost = new ArrayList<>() ;
+    boolean imagePlay = true;
 
+    private ProfilePictureView profile;
+    private  String informationImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //get data
+        Bundle bdl = getIntent().getExtras();
+        selectListPost = (ArrayList<News>) bdl.getSerializable("Data");
+        int realPost = bdl.getInt("position");
+
+
         setContentView(R.layout.activity_poster);
+        MyAsyncTask myAsyncTask = new  MyAsyncTask();
+        myAsyncTask.execute();
         imageBut= (ImageButton) findViewById(R.id.imageBut);
 
         imageView1 =(ImageView) findViewById(R.id.image1);
-        // change image in imageview
-        imageView1.setImageResource(R.drawable.news);
+        // read image with base64
+//        Bitmap  bm= StringToBitMap(informationImage);
+//        imageView1.setImageBitmap(bm);
+//        imageView1.setMaxHeight(100);
+//        imageView1.setMaxWidth(100);
+
         name= (TextView) findViewById(R.id.name);
+
+        name.setText(""+selectListPost.get(realPost).getTitle());
+
+
         content= (TextView) findViewById(R.id.content);
+        content.setText(""+selectListPost.get(realPost).getConttent());
         mediaPlayer = new MediaPlayer();
 
         imageBut.setOnClickListener(this);
-        MyAsyncTask myAsyncTask = new  MyAsyncTask();
-        myAsyncTask.execute();
+
+        Intent intent = getIntent();
+        username = (TextView) findViewById(R.id.name_user);
+        username.setText(intent.getStringExtra("name"));
+        profile=  (ProfilePictureView) findViewById(R.id.picture);
+        profile.setProfileId(intent.getStringExtra("id"));
+
     }
 
     @Override
@@ -73,6 +109,13 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         if (view.getId() == R.id.imageBut) {
 
             // play mediaplayer
+
+            if(imagePlay){
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
+            }else {
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
+            }
+            imagePlay=!imagePlay;
             if (mediaPlayer.isPlaying()) {
                 imageBut.setBackgroundResource(R.drawable.chat);
                 mediaPlayer.pause();
@@ -87,7 +130,17 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-
+    // convert String to bitmap
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
     // json ->  object : show poster
     class  MyAsyncTask extends AsyncTask<Void,Void,Void>{
             @Override
