@@ -103,4 +103,6 @@ Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo 
         android:id="@+id/name_user"/>
 
 </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
