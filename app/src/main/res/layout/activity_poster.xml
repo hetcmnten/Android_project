@@ -64,6 +64,7 @@
             android:textStyle="bold"
             android:textSize="20px" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,6 +102,7 @@ Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name_user"/>
-
 </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
