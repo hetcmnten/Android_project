@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageButton
-            android:layout_width="50px"
+            android:layout_width="65px"
             android:layout_height="50px"
             android:layout_marginLeft="20px"
             android:id="@+id/imageBut"
@@ -35,15 +35,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/datetime"
-            android:textSize="20px"
+            android:textSize="30px"
             android:textStyle="italic"
             android:text="yyyyy-mm-dd hh:mm:ss"
-            android:paddingLeft="20px"/>
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="20dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
 
         <TextView
             android:textColor="@color/cardview_dark_background"
@@ -57,15 +59,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
         <ImageView
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:src="@drawable/testimage"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
+            android:src="@drawable/trum"
            android:layout_gravity="center"
             android:id="@+id/image1"
             />
          <TextView
+             android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/content"

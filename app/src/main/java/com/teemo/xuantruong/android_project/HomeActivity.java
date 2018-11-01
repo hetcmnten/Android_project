@@ -1,6 +1,8 @@
 package com.teemo.xuantruong.android_project;
 
 
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.app.Fragment;
 
 import com.teemo.xuantruong.android_project.fragments.FragmentHomePage;
 
@@ -62,9 +65,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_setting:
-                Toast.makeText(HomeActivity.this,"SETTING FRAGMENT",Toast.LENGTH_LONG).show();
-                Log.d("setting ","select setting fragment");
-               // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentSetting()).commit();
+                Intent intent = new Intent(this,SettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_homepage:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();

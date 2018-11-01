@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:id="@+id/setting_layout"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".SettingActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imagesetting"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:textSize="25dp"
+        android:text="Chế độ ban đêm"
+        android:padding="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:textSize="25dp"
+        android:text="Chế độ lật trang"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:textSize="25dp"
+        android:text="Chế độ Speaker"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <Switch
+        android:id="@+id/switch4"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:textSize="25dp"
+        android:text="Chế độ Chiếu Màn Hình"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Chọn Giọng Đọc: "
+        android:textSize="25dp"
+        android:textColor="@android:color/background_dark"/>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="50dp"
+        android:padding="5dp"
+        android:background="@android:color/darker_gray"/>
+
+
+</LinearLayout>
