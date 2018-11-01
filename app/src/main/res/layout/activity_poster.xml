@@ -100,7 +100,10 @@ Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name_user"/>
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="20px"
+        android:id="@+id/name_user"
+        android:textStyle="bold"/>
 </LinearLayout>
     </LinearLayout>
     </ScrollView>

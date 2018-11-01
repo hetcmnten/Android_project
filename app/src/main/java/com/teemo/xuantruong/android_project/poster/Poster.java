@@ -57,9 +57,9 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         myAsyncTask.execute();
         imageBut= (ImageButton) findViewById(R.id.imageBut);
         name= (TextView) findViewById(R.id.name);
-        name.setText(""+selectListPost.get(realPost).getTitle_poster());
+//        name.setText(""+selectListPost.get(realPost).getTitle_poster());
         content= (TextView) findViewById(R.id.content);
-        content.setText(""+selectListPost.get(realPost).getContent_poster());
+//        content.setText(""+selectListPost.get(realPost).getContent_poster());
         mediaPlayer = new MediaPlayer();
 
         imageBut.setOnClickListener(this);
@@ -69,7 +69,8 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         username.setText(intent.getStringExtra("name"));
         profile=  (ProfilePictureView) findViewById(R.id.picture);
         profile.setProfileId(intent.getStringExtra("id"));
-
+        //set image in database
+        imageView1 =(ImageView) findViewById(R.id.image1);
     }
 
     @Override
@@ -87,28 +88,27 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.imageBut) {
 
-            // play mediaplayer
 
-            if(imagePlay){
-                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
-            }else {
-                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
-            }
-            imagePlay=!imagePlay;
+//            if(imagePlay){
+//                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
+//            }else {
+//                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
+//            }
+//            imagePlay=!imagePlay;
+        // play mediaplayer
+        if(view.getId()== R.id.imageBut) {
             if (mediaPlayer.isPlaying()) {
-                imageBut.setBackgroundResource(R.drawable.chat);
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
                 mediaPlayer.pause();
             }
             // pause mediaplayer
             else {
-                imageBut.setBackgroundResource(R.drawable.speech_bubble);
+                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
                 mediaPlayer.start();
-
             }
-
         }
+
     }
 
 
@@ -152,12 +152,11 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
             // read image with base64
             bm = StringToBitMap(informationImage);
-            imageView1 =(ImageView) findViewById(R.id.image1);
             imageView1.setImageBitmap(bm);
 
+            super.onPostExecute(aVoid);
         }
     }
     // read json in activity
@@ -173,9 +172,10 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     // get json object
                     name.setText(jsonObject.getString("title"));
+                    // get String text image
                     informationImage = jsonObject.getString("imgConverted");
-                    // test String image
-                    content.setText(informationImage);
+                    // get content
+                    content.setText(jsonObject.getString("content"));
             }
         } catch (JSONException e) {
             e.printStackTrace();

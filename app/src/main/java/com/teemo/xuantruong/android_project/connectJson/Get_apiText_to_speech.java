@@ -22,6 +22,7 @@ public class Get_apiText_to_speech {
 
     // use api  -> read json ( mp3)
     public  String apiChangetexttomp3(String text) throws  IOException{
+        String voice[]= {"leminh", "hatieumai","ngoclam","hatieumai"};
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, text);
@@ -29,7 +30,12 @@ public class Get_apiText_to_speech {
                 .url("http://api.openfpt.vn/text2speech/v4?aip_key=e8b586d28b904fd290f813ef6ee05764&voice=female")
                 .post(body)
                 .addHeader("api_key", "e8b586d28b904fd290f813ef6ee05764")
+                // set voice
                 .addHeader("voice", "leminh")
+                // set speed
+                .addHeader("speed","2")
+                //  set prosody
+                .addHeader("prosody","0")
                 .addHeader("cache-control", "no-cache")
                 .addHeader("Postman-Token", "a796a804-556f-4be3-bb77-37e972a9f039")
                 .build();
