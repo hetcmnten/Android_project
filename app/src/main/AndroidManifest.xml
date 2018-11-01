@@ -64,5 +64,6 @@
             android:name=".HomeActivity"
             android:label="Home page"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SettingActivity"></activity>
     </application>
 </manifest>

@@ -71,7 +71,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_homepage:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();
                 break;
-            default:
+                // go login
+            case  R.id.nav_account:
+                Intent intent1 = new Intent(this.getApplicationContext(), LoginActivity.class);
+                startActivity(intent1);
+                break;
+                default:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();
         }
         drawer.closeDrawer(GravityCompat.START);

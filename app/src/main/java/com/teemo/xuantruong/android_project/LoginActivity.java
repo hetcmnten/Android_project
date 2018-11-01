@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -35,15 +37,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-//import com.facebook.AccessToken;
-//import com.facebook.CallbackManager;
-//import com.facebook.FacebookCallback;
-//import com.facebook.FacebookException;
-//import com.facebook.GraphRequest;
-//import com.facebook.GraphResponse;
-//import com.facebook.login.LoginResult;
-//import com.facebook.login.widget.LoginButton;
-//import com.facebook.login.widget.ProfilePictureView;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.login.widget.ProfilePictureView;
+import com.teemo.xuantruong.android_project.poster.Poster;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,9 +66,13 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, View.OnClickListener {
 
-//    private CallbackManager callbackManager;
-//    private LoginButton loginButton;
-//    private ProfilePictureView profilePictureView;
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+    private  Button logout;
+    // sahre information
+    private SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "fileSaveLogin" ;
+    private  SharedPreferences.Editor editor;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -120,11 +128,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         // response message in server
-//        callbackManager = CallbackManager.Factory.create();
-        //
-//        loginButton = (LoginButton) findViewById(R.id.loginFacebook);
-//        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday", "user_friends"));
-//        loginButton.setOnClickListener(this);
+        callbackManager = CallbackManager.Factory.create();
+
+        // button login
+        loginButton = (LoginButton) findViewById(R.id.loginFacebook);
+        loginButton.setReadPermissions(Arrays.asList("public_profile","email","user_birthday", "user_friends"));
+        loginButton.setOnClickListener(this);
+        // logout
+        logout = (Button) findViewById(R.id.logout);
+        logout.setOnClickListener(this);
+
+        // save information login (id, name)
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
     }
 
 
@@ -134,59 +151,74 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         {
             setLoginFacebook();
         }
+        if(v.getId()== R.id.logout)
+        {
+            LoginManager.getInstance().logOut();
+        }
     }
-    //
+    //  set login
     private  void setLoginFacebook(){
-//        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            // when login is success
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//
-//             // TODO: 10/28/2018
-//                result();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//
-//            }
-//        });
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            // when login is success
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+             // TODO: 10/28/2018
+                result();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
     }
-    String email, gender;
+    String name_user, id;
     private void result() {
-//        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        Log.d("log: ", response.getJSONObject().toString());
-//
-//                        try {
-//                            email =object.getString("email");
-//                            gender = object.getString("first_name");
-//                            // set json from facebook to app
-//                            mEmailView.setText(email);
-//                            mPasswordView.setText(gender);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//        // get in formation in facebook
-//        Bundle parameter = new Bundle();
-//        parameter.putString("fields","id,name,email,gender,birthday,first_name");
-//        graphRequest.setParameters(parameter);
-//        graphRequest.executeAsync();
+        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.d("log: ", response.getJSONObject().toString());
+
+                        try {
+                            name_user =object.getString("name");
+                            id = object.getString("id");
+                            // set json from facebook to app
+                            mEmailView.setText(name_user);
+                            mPasswordView.setText(id);
+
+                            // save in formation login facbook in  sharedpreferences
+                            editor.putString("id", id);
+                            editor.putString("name", name_user);
+                            editor.commit();
+
+                            // go home page
+                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            intent.putExtra("id",id);
+                            intent.putExtra("name",name_user);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        // get in formation in facebook
+        Bundle parameter = new Bundle();
+        parameter.putString("fields","id,name,email,gender,birthday,first_name");
+        graphRequest.setParameters(parameter);
+        graphRequest.executeAsync();
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        callbackManager.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
     private void populateAutoComplete() {
