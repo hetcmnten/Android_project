@@ -53,17 +53,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return listCate.size();
     }
 
-//    @Override
-//    public View getView(int i, View view, ViewGroup viewGroup) {
-//        View itemView = view;
-//        com.teemo.xuantruong.android_project.Entity.Category selectedCat = listCat.get(i);
-//        itemView = (itemView == null) ? getLayoutInflater().inflate(R.layout.cardviewcategory,null) : itemView;
-//        ImageView imageView = (ImageView) itemView.findViewById(R.id.txtImage);
-//        TextView txtTitle = (TextView)itemView.findViewById(R.id.txtTitle);
-//        imageView.setImageResource(R.drawable.download);
-//        txtTitle.setText(selectedCat.getTitle());
-//        return itemView;
-//    }
 
     public static class MyViewHolder extends  RecyclerView.ViewHolder{
         TextView tvtextNew;

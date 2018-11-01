@@ -8,36 +8,26 @@ import android.media.MediaPlayer;
 
 import android.os.AsyncTask;
 
-import android.speech.tts.TextToSpeech;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.FacebookSdk;
 import com.facebook.login.widget.ProfilePictureView;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
 import com.teemo.xuantruong.android_project.connectJson.MyHttpHandler;
-import com.teemo.xuantruong.android_project.entity.News;
 import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.Serializable;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class Poster extends AppCompatActivity implements View.OnClickListener{
@@ -50,7 +40,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
     private  MediaPlayer mediaPlayer;
     private  String text1;
-    private ArrayList<News> selectListPost = new ArrayList<>() ;
+    private ArrayList<Poster_entity> selectListPost = new ArrayList<>() ;
     boolean imagePlay = true;
     private ProfilePictureView profile;
     private  String informationImage;
@@ -60,21 +50,16 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         //get data
         Bundle bdl = getIntent().getExtras();
-        selectListPost = (ArrayList<News>) bdl.getSerializable("Data");
+        selectListPost = (ArrayList<Poster_entity>) bdl.getSerializable("Data");
         int realPost = bdl.getInt("position");
         setContentView(R.layout.activity_poster);
         MyAsyncTask myAsyncTask = new  MyAsyncTask();
         myAsyncTask.execute();
         imageBut= (ImageButton) findViewById(R.id.imageBut);
         name= (TextView) findViewById(R.id.name);
-        // t comment lại chỗ n của ô nhé vì nó chết
-//        name.setText(""+selectListPost.get(realPost).getTitle());
-
-
+        name.setText(""+selectListPost.get(realPost).getTitle_poster());
         content= (TextView) findViewById(R.id.content);
-
-        // t comment lại chỗ n của ô nhé vì nó chết
-//        content.setText(""+selectListPost.get(realPost).getConttent());
+        content.setText(""+selectListPost.get(realPost).getContent_poster());
         mediaPlayer = new MediaPlayer();
 
         imageBut.setOnClickListener(this);

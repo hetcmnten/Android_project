@@ -9,15 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teemo.xuantruong.android_project.R;
-import com.teemo.xuantruong.android_project.entity.News;
+import com.teemo.xuantruong.android_project.entity.Poster_entity;
 
 import java.util.ArrayList;
 
 public class ListNewsAdapter extends BaseAdapter {
-    private ArrayList<News> listNews = new ArrayList<>();
+    private ArrayList<Poster_entity> listNews = new ArrayList<>();
     Context context;
 
-    public ListNewsAdapter(ArrayList<News> listNews, Context context) {
+    public ListNewsAdapter(ArrayList<Poster_entity> listNews, Context context) {
         this.listNews = listNews;
         this.context = context;
     }
@@ -41,14 +41,14 @@ public class ListNewsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = view;
-        News selectedNews = listNews.get(i);
+        Poster_entity selectedNews = listNews.get(i);
         itemView = (itemView == null) ? inflater.inflate(R.layout.customlayout,null) : itemView;
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
         TextView txtTitle = (TextView)itemView.findViewById(R.id.tvTitle);
         TextView txtDescription = (TextView)itemView.findViewById(R.id.tvTime);
         imageView.setImageResource(R.drawable.news);
-        txtTitle.setText(selectedNews.getTitle());
-        txtDescription.setText(selectedNews.getTime());
+        txtTitle.setText(selectedNews.getTitle_poster());
+        txtDescription.setText(selectedNews.getTime_poster());
         return itemView;
     }
 }

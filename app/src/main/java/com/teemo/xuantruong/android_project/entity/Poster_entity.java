@@ -1,6 +1,8 @@
 package com.teemo.xuantruong.android_project.entity;
 
-public class Poster_entity {
+import java.io.Serializable;
+
+public class Poster_entity implements Serializable {
 
     private  String id_poster;
     private  String type_poster;
@@ -25,6 +27,13 @@ public class Poster_entity {
         this.content_poster = content_poster;
         this.image_poster = image_poster;
         this.author_poster = author_poster;
+        this.time_poster = time_poster;
+    }
+
+    public Poster_entity(String image_poster, String title_poster , String time_poster, String content_poster ) {
+        this.title_poster = title_poster;
+        this.content_poster = content_poster;
+        this.image_poster = image_poster;
         this.time_poster = time_poster;
     }
 
