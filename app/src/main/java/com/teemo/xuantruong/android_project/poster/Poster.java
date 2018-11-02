@@ -8,6 +8,9 @@ import android.media.MediaPlayer;
 
 import android.os.AsyncTask;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -19,10 +22,13 @@ import android.widget.TextView;
 
 import com.facebook.login.widget.ProfilePictureView;
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
+import com.teemo.xuantruong.android_project.adapters.ViewPagePosterAdapter;
 import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
 import com.teemo.xuantruong.android_project.connectJson.MyHttpHandler;
 import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
+import com.teemo.xuantruong.android_project.fragments.FragmentPoster;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,21 +36,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Poster extends AppCompatActivity implements View.OnClickListener{
+public class Poster extends AppCompatActivity implements View.OnClickListener {
     private String TAG = Poster.class.getSimpleName();
     private ImageView imageView1;
     private ImageButton imageBut;
     private MyHttpHandler myhttp = new MyHttpHandler();
-    private TextView name, content,username;
-    private Poster_entity poster_entity =  new Poster_entity();
+    private TextView name, content, username;
+    private Poster_entity poster_entity = new Poster_entity();
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
-    private  MediaPlayer mediaPlayer;
-    private  String text1;
-    private ArrayList<Poster_entity> selectListPost = new ArrayList<>() ;
+    private MediaPlayer mediaPlayer;
+    private String text1;
+    private ArrayList<Poster_entity> selectListPost = new ArrayList<>();
     boolean imagePlay = true;
     private ProfilePictureView profile;
-    private  String informationImage;
-    private    Bitmap  bm;
+    private String informationImage;
+    private Bitmap bm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,24 +60,34 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
         selectListPost = (ArrayList<Poster_entity>) bdl.getSerializable("Data");
         int realPost = bdl.getInt("position");
         setContentView(R.layout.activity_poster);
-        MyAsyncTask myAsyncTask = new  MyAsyncTask();
+        MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
-        imageBut= (ImageButton) findViewById(R.id.imageBut);
-        name= (TextView) findViewById(R.id.name);
-//        name.setText(""+selectListPost.get(realPost).getTitle_poster());
-        content= (TextView) findViewById(R.id.content);
-//        content.setText(""+selectListPost.get(realPost).getContent_poster());
+
+        // PhongNV comment
+        // imageBut= (ImageButton) findViewById(R.id.imageBut);
+
+        // view page
+        ViewPager pager = (ViewPager) findViewById(R.id.poster_viewpager_id);
+        ViewPagePosterAdapter adapter = new ViewPagePosterAdapter(getSupportFragmentManager(), selectListPost);
+        pager.setAdapter(adapter);
+        pager.setCurrentItem(realPost);
+
+        //Tab layout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.poster_tab_id);
+        tabLayout.setupWithViewPager(pager, true);
+
         mediaPlayer = new MediaPlayer();
 
-        imageBut.setOnClickListener(this);
-            //tam thoi commit ve sau noi tu list -> poster
-        Intent intent = getIntent();
-        username = (TextView) findViewById(R.id.name_user);
-        username.setText(intent.getStringExtra("name"));
-        profile=  (ProfilePictureView) findViewById(R.id.picture);
-        profile.setProfileId(intent.getStringExtra("id"));
-        //set image in database
-        imageView1 =(ImageView) findViewById(R.id.image1);
+        // PhongNV comment
+
+        //imageBut.setOnClickListener(this);
+        //tam thoi commit ve sau noi tu list -> poster
+        //  Intent intent = getIntent();
+        // username = (TextView) findViewById(R.id.name_user);
+        //username.setText(intent.getStringExtra("name"));
+        //profile=  (ProfilePictureView) findViewById(R.id.picture);
+        //profile.setProfileId(intent.getStringExtra("id"));
+
     }
 
     @Override
@@ -123,48 +140,51 @@ public class Poster extends AppCompatActivity implements View.OnClickListener{
             return null;
         }
     }
+
     // json ->  object : show poster
-    class  MyAsyncTask extends AsyncTask<Void,Void,Void>{
-            @Override
+    class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
         protected Void doInBackground(Void... voids) {
-                try {
-                    // get json poster
-                    readJson();
-                    // add text in layout
-                    String txt = name.getText().toString()+ " "+content.getText().toString();
-                    // get link file mp3
-                    String texturl = getapiTexttospeech.apiChangetexttomp3(txt);
-                        // get json as json object
-                    JSONObject jsonObject1 = new JSONObject(texturl);
-                    // get elemet json object
-                    text1 = jsonObject1.getString("async");
+            try {
+                // get json poster
+                readJson();
+                // add text in layout
+                String txt = name.getText().toString() + " " + content.getText().toString();
+                // get link file mp3
+                String texturl = getapiTexttospeech.apiChangetexttomp3(txt);
+                // get json as json object
+                JSONObject jsonObject1 = new JSONObject(texturl);
+                // get elemet json object
+                text1 = jsonObject1.getString("async");
 
-                    // set mediaplayer in source
-                    //read mediaplayer online
-                    mediaPlayer.setDataSource(text1);
-                    mediaPlayer.prepare();
+                // set mediaplayer in source
+                //read mediaplayer online
+                mediaPlayer.setDataSource(text1);
+                mediaPlayer.prepare();
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             // read image with base64
-            bm = StringToBitMap(informationImage);
-            imageView1.setImageBitmap(bm);
-
+            // PhongNV comment
+            //bm = StringToBitMap(informationImage);
+            //imageView1 =(ImageView) findViewById(R.id.image1);
+            //imageView1.setImageBitmap(bm);
             super.onPostExecute(aVoid);
         }
     }
+
     // read json in activity
-    private void readJson() throws  Exception  {
+    private void readJson() throws Exception {
         try {
-                ReadJsonDB readJsonDB = new ReadJsonDB();
-                String json = readJsonDB.ConnectJson();
-                JSONArray jsonArray = null;
+            ReadJsonDB readJsonDB = new ReadJsonDB();
+            String json = readJsonDB.ConnectJson();
+            JSONArray jsonArray = null;
 
             jsonArray = new JSONArray(json);
 

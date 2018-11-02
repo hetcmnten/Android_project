@@ -87,9 +87,7 @@ public class FragmentListNews extends Fragment implements Serializable {
     public void setDataonArrayList(){
         Poster_entity eachNews = new Poster_entity(R.drawable.download+"","Người đàn ông nuôi hàng trăm con rồng Nam Mỹ ở Sài gòn","11h Trước","Trong số các nạn nhân bị thương, có 2 người bị thương nặng đang được cấp cứu tại Bệnh viện Nhân dân Gia Định."+
                 "Đứng bên ngoài phòng cấp cứu, bà Trần Mỹ Lệ (63 tuổi, quận Bình Thạnh) mắt đỏ hoe, chắp tay cầu nguyện cho con bà là anh H.H.Đ.(42 tuổi) tai qua nạn khỏi." +
-
                 "Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo anh Đ đang được cấp cứu tại Bệnh viện Nhân dân Gia Định" +
-
                 "“Chạy đến bệnh viện thì y tá nói con tôi bị gãy chân, bị thương nặng ở cổ. Khi đó, tôi thấy nó nằm trên băng ca nhưng người lờ đờ lắm. Nó thì thào nói con không biết gì cả”, bà Lệ nói trong lo lắng.");
         Poster_entity eachNews2 = new Poster_entity(R.drawable.news+"","Người đàn ông nuôi hàng trăm con rồng Nam Mỹ ở Sài gòn","11h Trước","abc");
         Poster_entity eachNews3 = new Poster_entity(R.drawable.download+"","Người đàn ông nuôi hàng trăm con rồng Nam Mỹ ở Sài gòn","11h Trước","cde");
