@@ -3,20 +3,13 @@ package com.teemo.xuantruong.android_project.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.teemo.xuantruong.android_project.R;
-import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
-import com.teemo.xuantruong.android_project.poster.Poster;
-
-import java.util.ArrayList;
 
 public class FragmentPoster extends Fragment {
 

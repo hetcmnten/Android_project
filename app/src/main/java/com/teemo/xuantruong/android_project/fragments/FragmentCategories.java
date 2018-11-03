@@ -21,30 +21,21 @@ import java.util.ArrayList;
 public class FragmentCategories extends Fragment {
     View view;
     ListView ListNews;
-    ArrayList<Category> listCat = new ArrayList<Category>();
+    public RecyclerView recyclerView;
+    public ArrayList<Category> listCat = new ArrayList<Category>();
     public FragmentCategories() {
-        SetDataCategories();
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category,container,false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), listCat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(recyclerViewAdapter);
         return view;
     }
-
-    public void SetDataCategories(){
-        listCat.add(new Category("ABCHSDGSDGSG","Abc"));
-        listCat.add(new Category("ABCSGAVBASD","Abc"));
-        listCat.add(new Category("SAGAXSAGVS","Abc"));
-        listCat.add(new Category("AFAFSGFSGSGG","Abc"));
-        listCat.add(new Category("ASGASGSGRNGHD","Abc"));
-        listCat.add(new Category("DFGXVBGSBAGBA","Abc"));
-    }
-
 
 }
