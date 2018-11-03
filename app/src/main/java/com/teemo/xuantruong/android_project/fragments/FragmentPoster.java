@@ -1,7 +1,10 @@
 package com.teemo.xuantruong.android_project.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
@@ -107,6 +111,7 @@ public class FragmentPoster extends Fragment {
                 if(!mp.isPlaying()){
                     mp.start();
                     startFadeIn();
+                    changeplayerSpeed(Float.parseFloat("2.0"));
                     btnPlay.setBackgroundResource(R.drawable.pause);
                 }else{
                     mp.pause();
@@ -125,6 +130,8 @@ public class FragmentPoster extends Fragment {
         txtPosterTitle.setText(poster.getTitle_poster());
         txtPosterDate.setText(poster.getTime_poster());
         txtPosterContent.setText(poster.getContent_poster());
+
+        GetDataFromSetting();
         return view;
     }
 
@@ -195,4 +202,19 @@ public class FragmentPoster extends Fragment {
 
     }
 
+    private void changeplayerSpeed(float speed) {
+        // this checks on API 23 and up
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mp.setPlaybackParams(mp.getPlaybackParams().setSpeed(speed));
+        }
+    }
+
+    public void GetDataFromSetting(){
+        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("infor", Context.MODE_PRIVATE);
+        Boolean checkSpeaker = sharedPref.getBoolean("checkedSpeaker",false);
+        int speed = sharedPref.getInt("Speed",0);
+        String voice = sharedPref.getString("Voice","");
+
+        Toast.makeText(getContext(),checkSpeaker+"/"+speed+"/"+voice+"/",Toast.LENGTH_LONG).show();
+    }
 }
