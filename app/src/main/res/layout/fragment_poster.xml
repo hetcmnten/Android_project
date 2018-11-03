@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cast_expanded_controller_ad_container_white_stripe_color">
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,8 +25,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Giới thiệu TBT Nguyễn Phú Trọng để QH bầu làm Chủ tịch nước"
-                    android:textColor="@color/cardview_dark_background"
-                    android:textSize="25dp"
+                    android:textColor="@color/cast_expanded_controller_background_color"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -32,62 +34,157 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/imageBut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
                     android:layout_gravity="right"
-                    android:background="@drawable/ic_speaker_black_24dp" />
+                    android:background="@drawable/speaker_play" />
 
                 <TextView
                     android:id="@+id/poster_datetime"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="left"
                     android:layout_gravity="center"
-                    android:paddingRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:text="yyyyy-mm-dd hh:mm:ss"
-                    android:textSize="13dp"
+                    android:textSize="18dp"
                     android:textStyle="italic" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:id="@+id/poster_image"
                     android:layout_width="wrap_content"
                     android:layout_height="250dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
                     android:src="@drawable/testimage" />
 
                 <TextView
                     android:id="@+id/poster_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/cast_expanded_controller_background_color"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_margin="7dp"
+                android:background="@android:color/holo_blue_dark">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/comment_uname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Username"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/simple_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" commented on "
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/comment_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dated:"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/comment_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comment text will display here"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/comment_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time:"
+                        android:textAlignment="viewEnd"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
 
                 <com.facebook.login.widget.ProfilePictureView
                     android:id="@+id/picture"
+                    android:layout_gravity="left"
+                    android:layout_width="80px"
+                    android:layout_height="80px" />
+                <EditText
+                    android:id="@+id/comment_input"
+                    android:layout_width="260dp"
+                    android:layout_height="80px"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:hint="write a comment here..."
+                    android:inputType="textMultiLine"
+                    android:background="@android:color/darker_gray"/>
+                <ImageButton
+                    android:id="@+id/post_comment_button"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="100px"
-                    android:layout_height="100px" />
+                    android:layout_height="80px"
+                    android:src="@drawable/comment"/>
 
-                <TextView
-                    android:id="@+id/name_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

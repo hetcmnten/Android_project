@@ -18,8 +18,8 @@ tools:context=".SettingActivity"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:textSize="25dp"
-        android:text="Chế độ ban đêm"
+        android:textSize="19dp"
+        android:text="Chế độ Speaker"
         android:padding="5dp"/>
     <View
         android:layout_width="match_parent"
@@ -27,43 +27,54 @@ tools:context=".SettingActivity"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:textSize="25dp"
-        android:text="Chế độ lật trang"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"/>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+       <TextView
+           android:layout_marginTop="10dp"
+           android:padding="5dp"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:text="Chọn Tốc Độ Đọc: "
+           android:textSize="19dp"
+           android:textColor="@android:color/background_dark"/>
+       <SeekBar
+           android:id="@+id/seek_bar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:max="2"
+           android:progress="0"
+           android:layout_centerInParent="true"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="horizontal"
+           android:layout_marginTop="10dp">
+           <TextView
+               android:gravity="left"
+               android:layout_marginLeft="5dp"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content"
+               android:text="Slow"/>
 
-    <Switch
-        android:id="@+id/switch3"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:textSize="25dp"
-        android:text="Chế độ Speaker"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+           <TextView
+               android:layout_marginLeft="90dp"
+               android:gravity="center"
+               android:layout_width="80dp"
+               android:layout_height="wrap_content"
+               android:text="Medium"/>
 
-    <Switch
-        android:id="@+id/switch4"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:textSize="25dp"
-        android:text="Chế độ Chiếu Màn Hình"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"/>
+           <TextView
+               android:layout_marginLeft="80dp"
+               android:gravity="right"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content"
+               android:text="Fast"/>
+       </LinearLayout>
+
+   </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -76,16 +87,17 @@ tools:context=".SettingActivity"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Chọn Giọng Đọc: "
-        android:textSize="25dp"
+        android:textSize="19dp"
         android:textColor="@android:color/background_dark"/>
     <Spinner
         android:id="@+id/spinner"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
         android:textSize="50dp"
         android:padding="5dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@drawable/spinner_background"/>
 
 
 </LinearLayout>
