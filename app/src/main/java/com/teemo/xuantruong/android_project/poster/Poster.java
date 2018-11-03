@@ -1,7 +1,9 @@
 package com.teemo.xuantruong.android_project.poster;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -52,6 +54,7 @@ public class Poster extends AppCompatActivity implements View.OnClickListener {
     private String informationImage;
     private Bitmap bm;
 
+    private ProfilePictureView picture;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

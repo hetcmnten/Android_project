@@ -3,7 +3,10 @@ package com.teemo.xuantruong.android_project.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,19 +15,29 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.widget.ProfilePictureView;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
+import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
+import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 import com.teemo.xuantruong.android_project.poster.Poster;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,19 +65,38 @@ public class FragmentPoster extends Fragment {
         btnPlay.setBackgroundResource(R.drawable.play);
         super.onDestroy();
     }
-
+    private  TextView txtPosterDate,txtPosterTitle,txtPosterContent;
+    private ImageView image;
+    private  String informationImage;
+    private ProfilePictureView filePicture;
+    // read File save login
+    private SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "fileSaveLogin" ;
+    private  SharedPreferences.Editor editor;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_poster, container, false);
-        TextView txtPosterDate = view.findViewById(R.id.poster_datetime);
-        TextView txtPosterTitle = view.findViewById(R.id.poster_title);
-        TextView txtPosterContent = view.findViewById(R.id.poster_content);
+        // date
+        txtPosterDate = view.findViewById(R.id.poster_datetime);
+        // title
+        txtPosterTitle = view.findViewById(R.id.poster_title);
+        // content
+        txtPosterContent = view.findViewById(R.id.poster_content);
+
+        // image poster
+        image = (ImageView) view.findViewById(R.id.poster_image);
+        MyAsyncTask myAsyncTask = new MyAsyncTask();
+        myAsyncTask.execute();
+
+
+
         //Muusic
         seekBar = view.findViewById(R.id.seekbar_speark);
         elapsedTime = view.findViewById(R.id.txtStart);
         remainingTime = view.findViewById(R.id.txtPlaying);
         btnPlay = (ImageButton) view.findViewById(R.id.imageBut);
-        mp = MediaPlayer.create(getActivity(),R.raw.nhac);
+
+
         mp.setLooping(true);
         mp.seekTo(0);
         totalTime=mp.getDuration();
@@ -123,14 +155,21 @@ public class FragmentPoster extends Fragment {
        // mp.start();
 
         //get bundel from view page
-        Bundle bundle = this.getArguments();
-        poster = (Poster_entity) bundle.getSerializable("poster");
+//        Bundle bundle = this.getArguments();
+//        poster = (Poster_entity) bundle.getSerializable("poster");
+//
+//        //set view
+//        txtPosterTitle.setText(poster.getTitle_poster());
+//        txtPosterDate.setText(poster.getTime_poster());
+//        txtPosterContent.setText(poster.getContent_poster());
 
-        //set view
-        txtPosterTitle.setText(poster.getTitle_poster());
-        txtPosterDate.setText(poster.getTime_poster());
-        txtPosterContent.setText(poster.getContent_poster());
-
+        // save information login (id, name)
+        sharedpreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        // set image avatar
+        filePicture = (ProfilePictureView) view.findViewById(R.id.picture);
+        // get id in sharedpreferences
+        filePicture.setProfileId(sharedpreferences.getString("id", ""));
         GetDataFromSetting();
         return view;
     }
@@ -217,4 +256,93 @@ public class FragmentPoster extends Fragment {
 
         Toast.makeText(getContext(),checkSpeaker+"/"+speed+"/"+voice+"/",Toast.LENGTH_LONG).show();
     }
+
+
+    // convert String to bitmap
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+    // read json in activity
+    private void readJson() throws Exception {
+        try {
+            ReadJsonDB readJsonDB = new ReadJsonDB();
+            // fic id = 21141 need to fix
+            String json = readJsonDB.ConnectJson();
+            JSONArray jsonArray = null;
+            jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                // get json object
+                // tittle
+                txtPosterTitle.setText(jsonObject.getString("title"));
+                // date
+                txtPosterDate.setText(jsonObject.getString("publishTime"));
+                // content
+                txtPosterContent.setText(jsonObject.getString("content"));
+                // String image
+                informationImage =  jsonObject.getString("imgConverted");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
+    private String text1;
+
+    //get file mp3 use api text to speech
+    private void   getLinkMp3() throws IOException {
+
+        try {
+            // add text in layout
+            String txt = txtPosterTitle.getText() + " " + txtPosterContent.getText();
+            // get link file mp3
+            String texturl = getapiTexttospeech.apiChangetexttomp3(txt);
+            JSONObject jsonObject1 = new JSONObject(texturl);
+            // get elemet json object
+            text1 = jsonObject1.getString("async");
+            // set mediaplayer in source
+            //read mediaplayer online
+            mp.setDataSource(text1);
+            mp.prepare();
+        }catch ( Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    private Bitmap bm;
+    class MyAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                // get json poster
+                readJson();
+                // get text link mp3
+                getLinkMp3();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        // process  image in databse
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            // read image with base64
+            bm = StringToBitMap(informationImage);
+            image.setImageBitmap(bm);
+            super.onPostExecute(aVoid);
+        }
+    }
+
 }
