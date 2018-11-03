@@ -110,10 +110,10 @@ public class FragmentHomePage extends Fragment implements Runnable {
 
     @Override
     public void run() {
-        while (true){
-            if(FlagCategorySource.flagSource!=flagSource || FlagCategorySource.flaCategory!=flagCategory){
-                viewPager.setCurrentItem(0);
-            }
-        }
+//        while (true){
+//            if(FlagCategorySource.flagSource!=flagSource || FlagCategorySource.flaCategory!=flagCategory){
+//                viewPager.setCurrentItem(0);
+//            }
+//        }
     }
 }
