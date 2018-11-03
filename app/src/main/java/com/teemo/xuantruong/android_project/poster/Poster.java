@@ -116,12 +116,12 @@ public class Poster extends AppCompatActivity implements View.OnClickListener {
         // play mediaplayer
         if(view.getId()== R.id.imageBut) {
             if (mediaPlayer.isPlaying()) {
-                imageBut.setBackgroundResource(R.drawable.ic_speaker_black_24dp);
+                imageBut.setBackgroundResource(R.drawable.speaker_play);
                 mediaPlayer.pause();
             }
             // pause mediaplayer
             else {
-                imageBut.setBackgroundResource(R.drawable.ic_speaker_red);
+                imageBut.setBackgroundResource(R.drawable.speaker_pause);
                 mediaPlayer.start();
             }
         }

@@ -37,13 +37,13 @@
                 android:layoutDirection="rtl"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageBut"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="right"
-                    android:background="@drawable/speaker_play" />
+                <!--<ImageButton-->
+                    <!--android:id="@+id/imageBut"-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:background="@drawable/speaker_play" />-->
 
                 <TextView
                     android:id="@+id/poster_datetime"
@@ -55,6 +55,53 @@
                     android:text="yyyyy-mm-dd hh:mm:ss"
                     android:textSize="18dp"
                     android:textStyle="italic" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageBut"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/play" />
+
+                <SeekBar
+                    android:id="@+id/seekbar_speark"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/txtStart"
+                    android:layout_marginLeft="45dp"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="00:00"/>
+
+                <TextView
+                    android:id="@+id/txtPlaying"
+                    android:layout_marginLeft="190dp"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="-1:00"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -167,11 +214,13 @@
                     android:id="@+id/picture"
                     android:layout_gravity="left"
                     android:layout_width="80px"
-                    android:layout_height="80px" />
+                    android:layout_height="70px" />
                 <EditText
                     android:id="@+id/comment_input"
-                    android:layout_width="260dp"
-                    android:layout_height="80px"
+                    android:layout_gravity="center"
+                    android:paddingLeft="5dp"
+                    android:layout_width="240dp"
+                    android:layout_height="70px"
                     android:layout_marginLeft="5dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
@@ -180,10 +229,10 @@
                     android:background="@android:color/darker_gray"/>
                 <ImageButton
                     android:id="@+id/post_comment_button"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="3dp"
                     android:layout_width="100px"
-                    android:layout_height="80px"
-                    android:src="@drawable/comment"/>
+                    android:layout_height="70px"
+                    android:background="@drawable/comment"/>
 
             </LinearLayout>
         </LinearLayout>
