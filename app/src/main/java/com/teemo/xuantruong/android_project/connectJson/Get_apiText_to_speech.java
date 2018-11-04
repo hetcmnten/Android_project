@@ -21,8 +21,12 @@ public class Get_apiText_to_speech {
     }
 
     // use api  -> read json ( mp3)
-    public  String apiChangetexttomp3(String text) throws  IOException{
-        String voice[]= {"leminh", "hatieumai","ngoclam","hatieumai"};
+    public  String apiChangetexttomp3(String text, int speech , String voice) throws  IOException{
+        if(voice ==null)
+        {
+            voice ="leminh";
+        }
+        String voice1[]= {"leminh", "hatieumai","ngoclam"};
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/octet-stream");
         RequestBody body = RequestBody.create(mediaType, text);
@@ -31,9 +35,9 @@ public class Get_apiText_to_speech {
                 .post(body)
                 .addHeader("api_key", "e8b586d28b904fd290f813ef6ee05764")
                 // set voice
-                .addHeader("voice", "leminh")
+                .addHeader("voice", voice)
                 // set speed
-                .addHeader("speed","2")
+                .addHeader("speed",String.valueOf(speech))
                 //  set prosody
                 .addHeader("prosody","0")
                 .addHeader("cache-control", "no-cache")
