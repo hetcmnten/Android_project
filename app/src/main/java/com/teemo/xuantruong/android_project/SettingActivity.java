@@ -18,7 +18,7 @@ public class SettingActivity extends AppCompatActivity {
    Spinner spinner;
     ArrayAdapter<String> listAdapter;
     Switch choicespeaker;
-   String[] speaker ={"Chị Google","Giọng Nam","Giọng Nữ"};
+   String[] speaker ={"leminh","hatieumai","ngoclam"};
    ImageView imageView;
    Boolean checkedSpeaker=false;
    int speed;
