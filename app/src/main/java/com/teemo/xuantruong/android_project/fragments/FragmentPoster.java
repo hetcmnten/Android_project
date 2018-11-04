@@ -46,6 +46,7 @@ public class FragmentPoster extends Fragment {
 
     private Poster_entity poster = new Poster_entity();
     SeekBar seekBar;
+    View v;
     int totalTime;
     TextView elapsedTime,remainingTime;
     MediaPlayer mp;
@@ -77,6 +78,7 @@ public class FragmentPoster extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_poster, container, false);
         // date
+        v=view;
         txtPosterDate = view.findViewById(R.id.poster_datetime);
         // title
         txtPosterTitle = view.findViewById(R.id.poster_title);
@@ -86,12 +88,7 @@ public class FragmentPoster extends Fragment {
         // image poster
         image = (ImageView) view.findViewById(R.id.poster_image);
 
-        //Muusic
-        //get view seek bar
-        seekBar = view.findViewById(R.id.seekbar_speark);
-        // text time seek bar
-        elapsedTime = view.findViewById(R.id.txtStart);
-        remainingTime = view.findViewById(R.id.txtPlaying);
+
 
         btnPlay = (ImageButton) view.findViewById(R.id.imageBut);
 
@@ -107,40 +104,7 @@ public class FragmentPoster extends Fragment {
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(b){
-                    mp.seekTo(i);
-                    seekBar.setProgress(i);
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        //Thread change seekbar second
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (mp!=null){
-                    try{
-                        Message msg = new Message();
-                        msg.what=mp.getCurrentPosition();
-                        handler.sendMessage(msg);
-                        Thread.sleep(1000);
-                    }catch (InterruptedException e){}
-                }
-            }
-        }).start();
 
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -277,13 +241,13 @@ public class FragmentPoster extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 // get json object
                 // tittle
-//                txtPosterTitle.setText(jsonObject.getString("title"));
-//                // date
-//                txtPosterDate.setText(jsonObject.getString("publishTime"));
-//                // content
-//                txtPosterContent.setText(jsonObject.getString("content"));
-//                // String image
-//                informationImage =  jsonObject.getString("imgConverted");
+                txtPosterTitle.setText(jsonObject.getString("title"));
+                // date
+                txtPosterDate.setText(jsonObject.getString("publishTime"));
+                // content
+                txtPosterContent.setText(jsonObject.getString("content"));
+                // String image
+                informationImage =  jsonObject.getString("imgConverted");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -297,6 +261,12 @@ public class FragmentPoster extends Fragment {
     private void   getLinkMp3() throws IOException {
 
         try {
+            //Muusic
+            //get view seek bar
+            seekBar = v.findViewById(R.id.seekbar_speark);
+            // text time seek bar
+            elapsedTime = v.findViewById(R.id.txtStart);
+            remainingTime = v.findViewById(R.id.txtPlaying);
             // add text in layout
             String txt = txtPosterTitle.getText() + " " + txtPosterContent.getText();
             // get link file mp3
@@ -312,6 +282,40 @@ public class FragmentPoster extends Fragment {
             mp.seekTo(0);
             totalTime=mp.getDuration();
             seekBar.setMax(totalTime);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    if(b){
+                        mp.seekTo(i);
+                        seekBar.setProgress(i);
+                    }
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+            //Thread change seekbar second
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (mp!=null){
+                        try{
+                            Message msg = new Message();
+                            msg.what=mp.getCurrentPosition();
+                            handler.sendMessage(msg);
+                            Thread.sleep(1000);
+                        }catch (InterruptedException e){}
+                    }
+                }
+            }).start();
         }catch ( Exception e)
         {
             e.printStackTrace();
@@ -324,7 +328,7 @@ public class FragmentPoster extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 // get json poster
-                //readJson();
+                readJson();
                 // get text link mp3
                 getLinkMp3();
 
