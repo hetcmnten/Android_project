@@ -206,12 +206,13 @@ public class FragmentPoster extends Fragment {
                 mp.setPlaybackParams(mp.getPlaybackParams().setSpeed(speed));
         }
     }
-
+    private  String voice;
+    private  int speed;
     public void GetDataFromSetting(){
         SharedPreferences sharedPref = this.getActivity().getSharedPreferences("infor", Context.MODE_PRIVATE);
         Boolean checkSpeaker = sharedPref.getBoolean("checkedSpeaker",false);
-        int speed = sharedPref.getInt("Speed",0);
-        String voice = sharedPref.getString("Voice","");
+        speed = sharedPref.getInt("Speed",0);
+        voice = sharedPref.getString("Voice","");
 
         Toast.makeText(getContext(),checkSpeaker+"/"+speed+"/"+voice+"/",Toast.LENGTH_LONG).show();
     }
@@ -270,7 +271,7 @@ public class FragmentPoster extends Fragment {
             // add text in layout
             String txt = txtPosterTitle.getText() + " " + txtPosterContent.getText();
             // get link file mp3
-            String texturl = getapiTexttospeech.apiChangetexttomp3(txt);
+            String texturl = getapiTexttospeech.apiChangetexttomp3(txt, speed, voice);
             JSONObject jsonObject1 = new JSONObject(texturl);
             // get elemet json object
             text1 = jsonObject1.getString("async");
