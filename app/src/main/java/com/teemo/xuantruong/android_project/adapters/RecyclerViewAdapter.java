@@ -20,11 +20,13 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     private Context mContext;
-    private ArrayList<com.teemo.xuantruong.android_project.entity.Category> listCate;
+    public ArrayList<Category> listCate;
+    CustomItemClickListener listener;
 
-    public RecyclerViewAdapter(Context mContext, ArrayList<Category> listCate) {
+    public RecyclerViewAdapter(Context mContext, ArrayList<Category> listCate,CustomItemClickListener listener ) {
         this.mContext = mContext;
         this.listCate = listCate;
+        this.listener =listener;
     }
 
     @Override
@@ -32,22 +34,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
        View v;
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         v = layoutInflater.inflate(R.layout.cardviewcategory,parent,false);
-        return new MyViewHolder(v);
+        final MyViewHolder mViewHolder = new MyViewHolder(v);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, mViewHolder.getPosition());
+            }
+        });
+        return mViewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tvtextNew.setText(listCate.get(position).getTitle());
-//      holder.imageNew.setImageResource(listCate.get(position).getImageName());
         holder.imageNew.setImageResource(R.drawable.download);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FlagCategorySource.flaCategory=position;
-                Toast.makeText(mContext,"Categories"+position,Toast.LENGTH_LONG).show();
-
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FlagCategorySource.flaCategory=position;
+//                Toast.makeText(mContext,"Categories"+position,Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
     }
 
     @Override

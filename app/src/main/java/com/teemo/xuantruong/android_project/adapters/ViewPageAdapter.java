@@ -10,11 +10,11 @@ import com.teemo.xuantruong.android_project.fragments.FragmentListNews;
 import com.teemo.xuantruong.android_project.fragments.FragmentSources;
 
 public class ViewPageAdapter extends FragmentPagerAdapter {
-    public final FragmentSources fragmentSource = new FragmentSources();
-    public final FragmentCategories fragmentCategories = new FragmentCategories();
-    public final FragmentListNews fragmentListNews = new FragmentListNews();
+    public  FragmentSources fragmentSource = new FragmentSources();
+    public  FragmentCategories fragmentCategories = new FragmentCategories();
+    public  FragmentListNews fragmentListNews = new FragmentListNews();
 
-    private final String[] FraListTitles = {"TIN HOT", "THỂ LOẠI", "NGUỒN BÁO"};
+    public   String[] FraListTitles = {"TIN HOT", "THỂ LOẠI", "NGUỒN BÁO"};
     private static int flagSource = 0;
     private static int flagCategory = 0;
 

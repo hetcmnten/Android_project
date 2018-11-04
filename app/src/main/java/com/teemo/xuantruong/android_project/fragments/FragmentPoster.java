@@ -85,22 +85,28 @@ public class FragmentPoster extends Fragment {
 
         // image poster
         image = (ImageView) view.findViewById(R.id.poster_image);
+
+        //Muusic
+        //get view seek bar
+        seekBar = view.findViewById(R.id.seekbar_speark);
+        // text time seek bar
+        elapsedTime = view.findViewById(R.id.txtStart);
+        remainingTime = view.findViewById(R.id.txtPlaying);
+
+        btnPlay = (ImageButton) view.findViewById(R.id.imageBut);
+
+        //get bundel from view page
+        Bundle bundle = this.getArguments();
+        poster = (Poster_entity) bundle.getSerializable("poster");
+
+        //set view
+        txtPosterTitle.setText(poster.getTitle_poster());
+        txtPosterDate.setText(poster.getTime_poster());
+        txtPosterContent.setText(poster.getContent_poster());
+
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
 
-
-
-        //Muusic
-        seekBar = view.findViewById(R.id.seekbar_speark);
-        elapsedTime = view.findViewById(R.id.txtStart);
-        remainingTime = view.findViewById(R.id.txtPlaying);
-        btnPlay = (ImageButton) view.findViewById(R.id.imageBut);
-
-
-        mp.setLooping(true);
-        mp.seekTo(0);
-        totalTime=mp.getDuration();
-        seekBar.setMax(totalTime);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -121,7 +127,7 @@ public class FragmentPoster extends Fragment {
             }
         });
 
-        //Thread
+        //Thread change seekbar second
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +149,7 @@ public class FragmentPoster extends Fragment {
                 if(!mp.isPlaying()){
                     mp.start();
                     startFadeIn();
-                    changeplayerSpeed(Float.parseFloat("2.0"));
+                    changeplayerSpeed(Float.parseFloat("1"));
                     btnPlay.setBackgroundResource(R.drawable.pause);
                 }else{
                     mp.pause();
@@ -151,17 +157,6 @@ public class FragmentPoster extends Fragment {
                 }
             }
         });
-       // mp = MediaPlayer.create(getActivity(),R.raw.nhac);
-       // mp.start();
-
-        //get bundel from view page
-//        Bundle bundle = this.getArguments();
-//        poster = (Poster_entity) bundle.getSerializable("poster");
-//
-//        //set view
-//        txtPosterTitle.setText(poster.getTitle_poster());
-//        txtPosterDate.setText(poster.getTime_poster());
-//        txtPosterContent.setText(poster.getContent_poster());
 
         // save information login (id, name)
         sharedpreferences = this.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -282,13 +277,13 @@ public class FragmentPoster extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 // get json object
                 // tittle
-                txtPosterTitle.setText(jsonObject.getString("title"));
-                // date
-                txtPosterDate.setText(jsonObject.getString("publishTime"));
-                // content
-                txtPosterContent.setText(jsonObject.getString("content"));
-                // String image
-                informationImage =  jsonObject.getString("imgConverted");
+//                txtPosterTitle.setText(jsonObject.getString("title"));
+//                // date
+//                txtPosterDate.setText(jsonObject.getString("publishTime"));
+//                // content
+//                txtPosterContent.setText(jsonObject.getString("content"));
+//                // String image
+//                informationImage =  jsonObject.getString("imgConverted");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -311,8 +306,12 @@ public class FragmentPoster extends Fragment {
             text1 = jsonObject1.getString("async");
             // set mediaplayer in source
             //read mediaplayer online
+            mp= new MediaPlayer();
             mp.setDataSource(text1);
             mp.prepare();
+            mp.seekTo(0);
+            totalTime=mp.getDuration();
+            seekBar.setMax(totalTime);
         }catch ( Exception e)
         {
             e.printStackTrace();
@@ -325,7 +324,7 @@ public class FragmentPoster extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 // get json poster
-                readJson();
+                //readJson();
                 // get text link mp3
                 getLinkMp3();
 

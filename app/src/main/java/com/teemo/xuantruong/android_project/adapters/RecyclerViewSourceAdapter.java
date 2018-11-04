@@ -1,7 +1,7 @@
 package com.teemo.xuantruong.android_project.adapters;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,46 +9,49 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.teemo.xuantruong.android_project.R;
-import com.teemo.xuantruong.android_project.entity.Category;
-import com.teemo.xuantruong.android_project.entity.FlagCategorySource;
 import com.teemo.xuantruong.android_project.entity.Source;
-import com.teemo.xuantruong.android_project.fragments.FragmentHomePage;
 
 import java.util.ArrayList;
 
-public class RecyclerViewSourceAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class RecyclerViewSourceAdapter extends RecyclerView.Adapter<RecyclerViewSourceAdapter.MyViewHolder> {
     private Context mContext;
     private ArrayList<Source> listSources;
+    CustomItemClickListener listener;
 
-    public RecyclerViewSourceAdapter(Context mContext, ArrayList<Source> listSources) {
+    public RecyclerViewSourceAdapter(Context mContext, ArrayList<Source> listSources,CustomItemClickListener listener) {
         this.mContext = mContext;
         this.listSources = listSources;
+        this.listener = listener;
     }
 
     @Override
-    public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         v = layoutInflater.inflate(R.layout.cardviewcategory, parent, false);
-        return new RecyclerViewAdapter.MyViewHolder(v);
+        final MyViewHolder mViewHolder = new MyViewHolder(v);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, mViewHolder.getPosition());
+            }
+        });
+        return mViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.tvtextNew.setText(listSources.get(position).getSource_title());
-//      holder.imageNew.setImageResource(listCate.get(position).getImageName());
         holder.imageNew.setImageResource(R.drawable.download);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FlagCategorySource.flagSource = position;
-                FlagCategorySource.flaCategory = 0;
-                Toast.makeText(mContext, "Source" + position, Toast.LENGTH_LONG).show();
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FlagCategorySource.flagSource = position;
+//                FlagCategorySource.flaCategory = 0;
+//                Toast.makeText(mContext, "Source" + position, Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override

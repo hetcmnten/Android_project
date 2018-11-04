@@ -1,6 +1,7 @@
 package com.teemo.xuantruong.android_project.fragments;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,7 +24,7 @@ import com.teemo.xuantruong.android_project.entity.FlagCategorySource;
 public class FragmentHomePage extends Fragment implements Runnable {
     private AppBarLayout appBar;
     private TabLayout tabs;
-    private ViewPager viewPager;
+    public ViewPager viewPager;
     static int flagSource = 0;
     static int flagCategory = 0;
 
@@ -48,7 +50,8 @@ public class FragmentHomePage extends Fragment implements Runnable {
                     adapter.fragmentCategories.listCat = adapter.fragmentSource.listSource.get(flagCurrentSource).getSource_categories();
                     adapter.fragmentListNews.listNews = adapter.fragmentCategories.listCat.get(0).getListPosters();
                     //update adapter list category
-                    adapter.fragmentCategories.recyclerView.setAdapter(new RecyclerViewAdapter(getActivity(), adapter.fragmentCategories.listCat));
+                    adapter.fragmentCategories.recyclerViewAdapter.listCate = adapter.fragmentCategories.listCat;
+                    adapter.fragmentCategories.recyclerView.setAdapter(adapter.fragmentCategories.recyclerViewAdapter);
                     //update adapter list news
                     adapter.fragmentListNews.ListViewNews.setAdapter(new ListNewsAdapter(adapter.fragmentListNews.listNews, getActivity()));
                     flagSource = flagCurrentSource;
@@ -64,7 +67,7 @@ public class FragmentHomePage extends Fragment implements Runnable {
                         flagCategory = flagCurrentCategory;
                     }
                 }
-               // viewPager.setCurrentItem(tab.getPosition());
+                // viewPager.setCurrentItem(tab.getPosition());
                 Toast.makeText(getContext(), "slected", Toast.LENGTH_SHORT).show();
                 Log.d("Tab", "slected");
             }
@@ -85,6 +88,14 @@ public class FragmentHomePage extends Fragment implements Runnable {
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
         tabs.setupWithViewPager(viewPager);
+        viewPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tabs.getSelectedTabPosition()!=0){
+                    viewPager.setCurrentItem(0);
+                }
+            }
+        });
         Log.d("Creat", "Home Page creat");
         return view;
     }

@@ -11,10 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.teemo.xuantruong.android_project.adapters.CustomItemClickListener;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewAdapter;
 import com.teemo.xuantruong.android_project.entity.Category;
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.entity.FlagCategorySource;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,7 @@ public class FragmentCategories extends Fragment {
     ListView ListNews;
     public RecyclerView recyclerView;
     public ArrayList<Category> listCat = new ArrayList<Category>();
+    public RecyclerViewAdapter recyclerViewAdapter;
     public FragmentCategories() {
 
     }
@@ -32,7 +36,14 @@ public class FragmentCategories extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category,container,false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), listCat);
+        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(), listCat, new CustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                FlagCategorySource.flaCategory=position;
+                ((FragmentHomePage)getParentFragment()).viewPager.setCurrentItem(0);
+                Toast.makeText(getActivity(),"Categories"+position,Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(recyclerViewAdapter);
         return view;

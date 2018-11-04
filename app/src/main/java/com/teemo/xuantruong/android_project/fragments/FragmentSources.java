@@ -11,9 +11,11 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.adapters.CustomItemClickListener;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewAdapter;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewSourceAdapter;
 import com.teemo.xuantruong.android_project.entity.Category;
+import com.teemo.xuantruong.android_project.entity.FlagCategorySource;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 import com.teemo.xuantruong.android_project.entity.Source;
 import com.teemo.xuantruong.android_project.poster.Poster;
@@ -32,10 +34,18 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_source, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_source);
-        RecyclerViewSourceAdapter recyclerViewAdapter = new RecyclerViewSourceAdapter(getActivity(), listSource);
+        RecyclerViewSourceAdapter recyclerViewAdapter = new RecyclerViewSourceAdapter(getActivity(), listSource, new CustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                FlagCategorySource.flagSource = position;
+                FlagCategorySource.flaCategory = 0;
+              Toast.makeText(getActivity(), "Source" + position, Toast.LENGTH_LONG).show();
+                ((FragmentHomePage)getParentFragment()).viewPager.setCurrentItem(0);
+            }
+        });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(recyclerViewAdapter);
-        
+
         return view;
     }
 
