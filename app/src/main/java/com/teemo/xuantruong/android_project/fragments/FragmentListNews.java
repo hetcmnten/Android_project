@@ -59,34 +59,32 @@ public class FragmentListNews extends Fragment implements Serializable {
                 int realPosition=0;
                 ArrayList<Poster_entity> selectListPost = new ArrayList<>();
 
-                if((position+1)%3==1){
-                    for (int i = 0; i <3 ; i++) {
-                        if(position+i==sizePost)
+                if((position)%3==0){
+                    for (int i = position; i <position+3 ; i++) {
+                        if(i>sizePost)
                             break;
-                        selectListPost.add(listNews.get(position+i));
+                        selectListPost.add(listNews.get(i));
                     }
                     realPosition=0;
-                }else if((position+1)%3==0){
-                    for (int i = 2; i >=0 ; i--) {
-                        selectListPost.add(listNews.get(position-i));
+                }else if((position)%3==2){
+                    for (int i = position-2; i <=position ; i++) {
+                        selectListPost.add(listNews.get(i));
                     }
-                    realPosition=selectListPost.size()-1;
+                    realPosition=2;
                 }else {
                     int from = position/3;
 
                     for (int i = from*3; i <(from+1)*3 ; i++) {
-                        if(position+i==sizePost)
+                        if(i>sizePost)
                             break;
                         selectListPost.add(listNews.get(i));
-                        if(i==position){
-                            realPosition = selectListPost.size()-1;
-                        }
                     }
+                    realPosition=1;
                 }
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), Poster.class);
                 intent.putExtra("position", realPosition);
-                intent.putExtra("Data",selectListPost);
+                Poster.selectListPost = selectListPost;
                 startActivity(intent);
             }
         });

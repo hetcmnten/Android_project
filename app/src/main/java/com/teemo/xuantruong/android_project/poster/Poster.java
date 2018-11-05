@@ -48,7 +48,7 @@ public class Poster extends AppCompatActivity {
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
     private MediaPlayer mediaPlayer;
     private String text1;
-    private ArrayList<Poster_entity> selectListPost = new ArrayList<>();
+    public static ArrayList<Poster_entity> selectListPost = new ArrayList<>();
     boolean imagePlay = true;
     private ProfilePictureView profile;
     private String informationImage;
@@ -63,7 +63,7 @@ public class Poster extends AppCompatActivity {
 
         //get data
         Bundle bdl = getIntent().getExtras();
-        selectListPost = (ArrayList<Poster_entity>) bdl.getSerializable("Data");
+     //   selectListPost = (ArrayList<Poster_entity>) bdl.getSerializable("Data");
         int realPost = bdl.getInt("position");
 
         // view page
@@ -79,7 +79,7 @@ public class Poster extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                pager.setCurrentItem(tab.getPosition());
+                //pager.setCurrentItem(tab.getPosition());
             }
 
             @Override

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.facebook.login.widget.ProfilePictureView;
 import com.teemo.xuantruong.android_project.R;
+import com.teemo.xuantruong.android_project.adapters.ConvertBase64;
 import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
 import com.teemo.xuantruong.android_project.connectJson.Get_apiText_to_speech;
 import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
@@ -62,7 +63,7 @@ public class FragmentPoster extends Fragment {
 
     @Override
     public void onDestroy() {
-        mp.pause();
+//        mp.pause();
         btnPlay.setBackgroundResource(R.drawable.play);
         super.onDestroy();
     }
@@ -94,17 +95,18 @@ public class FragmentPoster extends Fragment {
         btnPlay = (ImageButton) view.findViewById(R.id.imageBut);
 
         //get bundel from view page
-        Bundle bundle = this.getArguments();
-        poster = (Poster_entity) bundle.getSerializable("poster");
-
+        Bundle bundle = getArguments();
+        int positionPoster = bundle.getInt("positionPoster");
+        poster = Poster.selectListPost.get(positionPoster);
         //set view
         txtPosterTitle.setText(poster.getTitle_poster());
 
         txtPosterDate.setText(poster.getTime_poster());
 
         txtPosterContent.setText(poster.getContent_poster());
-        // get image poster
-        informationImage = poster.getImage_poster();
+
+        ConvertBase64 convertBase64 = new ConvertBase64();
+        image.setImageBitmap(convertBase64.StringToBitMap(poster.getImage_poster()));
 
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
@@ -317,10 +319,6 @@ public class FragmentPoster extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             // read image with base64
-            bm = StringToBitMap(informationImage);
-            image.setImageBitmap(bm);
-               // set image  use source code
-//            image.setImageResource(R.drawable.cafef);
             super.onPostExecute(aVoid);
         }
     }

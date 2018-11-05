@@ -97,16 +97,23 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Category> listkenh14 = new ArrayList<>();
 
 
-        for (Category category: listgenk
-                ) {
+
             for (Poster_entity pos: listroot
                     ) {
-                if(category.getTitle().equals(pos.getCategory_poster())){
+                if(listgenk.get(0).getTitle().equals(pos.getCategory_poster())){
                     listPosters1.add(pos);
+                }
+                if(listgenk.get(1).getTitle().equals(pos.getCategory_poster())){
+                    listPosters2.add(pos);
+                }
+                if(listgenk.get(2).getTitle().equals(pos.getCategory_poster())){
+                    listPosters3.add(pos);
+                }if(listgenk.get(3).getTitle().equals(pos.getCategory_poster())){
+                    listPosters4.add(pos);
                 }
             }
 
-        }
+
         //Fake data source
         listSource.add(new Source("CafeF","Abc",listgenk));
     }
@@ -131,15 +138,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-        //    dialog = new ProgressDialog(MainActivity.this);
-     //       dialog.setMessage("process.....");
-    //        dialog.show();
+            dialog = new ProgressDialog(MainActivity.this);
+            dialog.setMessage("process.....");
+            dialog.show();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-//            dialog.dismiss();
+            dialog.dismiss();
         }
     }
 
