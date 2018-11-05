@@ -211,8 +211,8 @@ public class FragmentPoster extends Fragment {
                 mp.setPlaybackParams(mp.getPlaybackParams().setSpeed(speed));
         }
     }
-    private  String voice;
-    private  int speed;
+    private  String voice="";
+    private  int speed=0;
     public void GetDataFromSetting(){
         SharedPreferences sharedPref = this.getActivity().getSharedPreferences("infor", Context.MODE_PRIVATE);
         Boolean checkSpeaker = sharedPref.getBoolean("checkedSpeaker",false);
