@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 public class ReadJsonDB {
     // edit = ipconfig
 
-    final String serverHost = "192.168.0.114";
+    final String serverHost = "192.168.0.117";
 
     Socket socketOfClient = null;
     BufferedWriter os = null;

@@ -7,15 +7,16 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:background="#1d316b"
     android:id="@+id/nav_header">
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@mipmap/ic_launcher_round"/>
+<com.facebook.login.widget.ProfilePictureView
+    android:layout_width="150px"
+    android:layout_height="150px"
+    android:id="@+id/avatar"
+    android:src="@mipmap/ic_launcher_round" />
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Phongnv96@gmail.com" />
+        android:text="User name" />
 
 </LinearLayout>

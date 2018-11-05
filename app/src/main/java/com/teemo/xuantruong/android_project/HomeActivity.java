@@ -2,7 +2,9 @@ package com.teemo.xuantruong.android_project;
 
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Fragment;
 
+import com.facebook.login.widget.ProfilePictureView;
 import com.teemo.xuantruong.android_project.entity.Source;
 import com.teemo.xuantruong.android_project.fragments.FragmentHomePage;
 import com.teemo.xuantruong.android_project.fragments.FragmentSources;
@@ -36,6 +39,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawer;
     public NavigationView ndrawer;
+
+    // read File save login
+    private SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "fileSaveLogin" ;
+    private  SharedPreferences.Editor editor;
+    private ProfilePictureView profilePictureView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +60,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ndrawer = (NavigationView) findViewById(R.id.nav_view);
 
 //        todo
+        // save information login (id, name)
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
         View hView =  ndrawer.getHeaderView(0);
         TextView nav_user = (TextView)hView.findViewById(R.id.user_name);
-        nav_user.setText("123323");
+        profilePictureView = (ProfilePictureView) hView.findViewById(R.id.avatar);
+        // set login
+        String username = sharedpreferences.getString("name", "");
+        String id_user = sharedpreferences.getString("id", "");
+        nav_user.setText(username);
+        profilePictureView.setProfileId(id_user);
+
 
         ndrawer.setNavigationItemSelectedListener(this);
 

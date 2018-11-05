@@ -68,12 +68,15 @@ public class FragmentPoster extends Fragment {
     }
     private  TextView txtPosterDate,txtPosterTitle,txtPosterContent;
     private ImageView image;
+
     private  String informationImage;
+
     private ProfilePictureView filePicture;
     // read File save login
     private SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "fileSaveLogin" ;
     private  SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_poster, container, false);
@@ -88,8 +91,6 @@ public class FragmentPoster extends Fragment {
         // image poster
         image = (ImageView) view.findViewById(R.id.poster_image);
 
-
-
         btnPlay = (ImageButton) view.findViewById(R.id.imageBut);
 
         //get bundel from view page
@@ -98,13 +99,15 @@ public class FragmentPoster extends Fragment {
 
         //set view
         txtPosterTitle.setText(poster.getTitle_poster());
+
         txtPosterDate.setText(poster.getTime_poster());
+
         txtPosterContent.setText(poster.getContent_poster());
+        // get image poster
+        informationImage = poster.getImage_poster();
 
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
-
-
 
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -230,31 +233,6 @@ public class FragmentPoster extends Fragment {
         }
     }
 
-    // read json in activity
-    private void readJson() throws Exception {
-        try {
-            ReadJsonDB readJsonDB = new ReadJsonDB();
-            // fic id = 21141 need to fix
-            String json = readJsonDB.ConnectJson();
-            JSONArray jsonArray = null;
-            jsonArray = new JSONArray(json);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                // get json object
-                // tittle
-                txtPosterTitle.setText(jsonObject.getString("title"));
-                // date
-                txtPosterDate.setText(jsonObject.getString("publishTime"));
-                // content
-                txtPosterContent.setText(jsonObject.getString("content"));
-                // String image
-                informationImage =  jsonObject.getString("imgConverted");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     private Get_apiText_to_speech getapiTexttospeech = new Get_apiText_to_speech();
     private String text1;
 
@@ -328,23 +306,21 @@ public class FragmentPoster extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                // get json poster
-                readJson();
                 // get text link mp3
                 getLinkMp3();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
-
         // process  image in databse
         @Override
         protected void onPostExecute(Void aVoid) {
             // read image with base64
             bm = StringToBitMap(informationImage);
             image.setImageBitmap(bm);
+               // set image  use source code
+//            image.setImageResource(R.drawable.cafef);
             super.onPostExecute(aVoid);
         }
     }

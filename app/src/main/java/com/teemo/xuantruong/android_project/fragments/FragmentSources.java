@@ -36,10 +36,6 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
     public ArrayList<Source> listSource = new ArrayList<>();
     public FragmentSources() {
         listSource = FirstSource;
-//        SetDataCategories();
-//        MyAsyncTask myAsyncTask = new MyAsyncTask();
-//        myAsyncTask.execute();
-
     }
 
     @Override
@@ -113,10 +109,10 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
         ArrayList<Poster_entity> listPosters3 = new ArrayList<>();
         ArrayList<Poster_entity> listPosters4 = new ArrayList<>();
         ArrayList<Category> listgenk = new ArrayList<>();
-        listgenk.add(new Category("Đồ chơi số","bcd",listPosters1));
-        listgenk.add(new Category("Sống","bcd",listPosters2));
-        listgenk.add(new Category("Mobile","bcd",listPosters3));
-        listgenk.add(new Category("Tin ICT","bcd",listPosters4));
+        listgenk.add(new Category("Đồ chơi số","R.drawable.dochoi",listPosters1));
+        listgenk.add(new Category("Sống","R.drawable.life",listPosters2));
+        listgenk.add(new Category("Mobile","R.drawable.mobile",listPosters3));
+        listgenk.add(new Category("Tin ICT","R.drawable.itc",listPosters4));
         //
         ArrayList<Category> listcafef = new ArrayList<>();
         //
@@ -133,10 +129,11 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
             }
 
         }
-        //Fake data source
-        listSource.add(new Source("CafeF","Abc",listgenk));
-     //   listSource.add(new Source("VietnamNet","Abc",listcafef));
-//        listSource.add(new Source("Kenh14","Abc",listkenh14));
+
+        listSource.add(new Source("genk","R.drawable.genk",listgenk));
+//        listSource.add(new Source("CafeF","R.drawable.cafef",listCafeF));
+//        listSource.add(new Source("VietnamNet","R.drawable.vietnamnet",listcafef));
+//        listSource.add(new Source("Kenh14","R.drawable.kenh",listkenh14));
 
 
 //        //Fake data lisposters

@@ -26,6 +26,11 @@ public class Get_apiText_to_speech {
         {
             voice ="leminh";
         }
+        if(String.valueOf(speech) ==null)
+        {
+            speech=0;
+        }
+
         String voice1[]= {"leminh", "hatieumai","ngoclam"};
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/octet-stream");
