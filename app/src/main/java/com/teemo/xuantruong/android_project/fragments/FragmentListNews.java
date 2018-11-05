@@ -25,9 +25,11 @@ import java.util.ArrayList;
 
 public class FragmentListNews extends Fragment implements Serializable {
     public ArrayList<Poster_entity> listNews = new ArrayList<>();
+    public ArrayList<Poster_entity> listNewsLV = new ArrayList<>();
     public ListView ListViewNews;
     TextView txtTile1;
     ImageButton imgHeader;
+    int i=0;
     public ListNewsAdapter news;
     public FragmentListNews(){
 
@@ -45,11 +47,17 @@ public class FragmentListNews extends Fragment implements Serializable {
         View view = inflater.inflate(R.layout.fragment_listpost,container,false);
         txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
         ListViewNews = (ListView) view.findViewById(R.id.listNews);
-        txtTile1.setText(listNews.get(0).getTitle_poster().substring(0,90)+"...");
+        txtTile1.setText(listNews.get(0).getTitle_poster().substring(0,60)+"...");
         ConvertBase64 convertBase64 = new ConvertBase64();
         imgHeader = view.findViewById(R.id.btnImage);
         imgHeader.setImageBitmap(convertBase64.StringToBitMap(listNews.get(0).getImage_poster()));
-        news = new ListNewsAdapter(listNews,getActivity());
+        for (Poster_entity pe : listNews){
+            if(i!=0)
+            listNewsLV.add(pe);
+            i++;
+        }
+
+        news = new ListNewsAdapter(listNewsLV,getActivity());
         ListViewNews.setAdapter(news);
         ListViewNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,7 +69,7 @@ public class FragmentListNews extends Fragment implements Serializable {
 
                 if((position)%3==0){
                     for (int i = position; i <position+3 ; i++) {
-                        if(i>sizePost)
+                        if(i>=sizePost)
                             break;
                         selectListPost.add(listNews.get(i));
                     }
@@ -75,7 +83,7 @@ public class FragmentListNews extends Fragment implements Serializable {
                     int from = position/3;
 
                     for (int i = from*3; i <(from+1)*3 ; i++) {
-                        if(i>sizePost)
+                        if(i>=sizePost)
                             break;
                         selectListPost.add(listNews.get(i));
                     }

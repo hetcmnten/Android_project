@@ -4,38 +4,37 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.adapters.CustomItemClickListener;
-import com.teemo.xuantruong.android_project.adapters.RecyclerViewAdapter;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewSourceAdapter;
 import com.teemo.xuantruong.android_project.connectJson.ReadJsonDB;
 import com.teemo.xuantruong.android_project.entity.Category;
 import com.teemo.xuantruong.android_project.entity.FlagCategorySource;
 import com.teemo.xuantruong.android_project.entity.Poster_entity;
 import com.teemo.xuantruong.android_project.entity.Source;
-import com.teemo.xuantruong.android_project.poster.Poster;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-public class FragmentSources extends Fragment implements View.OnClickListener {
+public class FragmentSources extends Fragment {
     View view;
-    public static ArrayList<Source> FirstSource= new ArrayList<>();
-    public ArrayList<Source> listSource = new ArrayList<>();
+    public static ArrayList<Source> listSource ;
+    //public ArrayList<Source> listSource = new ArrayList<>();
     public FragmentSources() {
-        listSource = FirstSource;
+
     }
 
     @Override
@@ -48,8 +47,11 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
             public void onItemClick(View v, int position) {
                 FlagCategorySource.flagSource = position;
                 FlagCategorySource.flaCategory = 0;
-              Toast.makeText(getActivity(), "Source" + position, Toast.LENGTH_LONG).show();
-                ((FragmentHomePage)getParentFragment()).viewPager.setCurrentItem(0);
+                MyAsyncTask myAsyncTask = new MyAsyncTask(listSource.get(position).getSource_title());
+                myAsyncTask.execute();
+                CardView cardView = v.findViewById(R.id.cardview_idd);
+
+
             }
         });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -59,11 +61,11 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
     }
 
 
-    private ArrayList<Poster_entity> readJson() throws Exception {
+    private ArrayList<Poster_entity> readJson(String stype) throws Exception {
 
         ArrayList<Poster_entity> list = new ArrayList<>();
         try {
-            ReadJsonDB readJsonDB = new ReadJsonDB();
+            ReadJsonDB readJsonDB = new ReadJsonDB(stype);
             // fic id = 21141 need to fix
             String json = readJsonDB.ConnectJson();
             JSONArray jsonArray = null;
@@ -95,99 +97,136 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
         return  list;
     }
 
-    public void SetDataCategories(){
-        listSource = new ArrayList<Source>();
+    public void SetDataCategories(String type){
+        //listSource = new ArrayList<Source>();
         ArrayList<Poster_entity> listroot= new ArrayList<>();
         try {
-            listroot =readJson();
+            listroot =readJson(type);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // genk
+        // listposter
         ArrayList<Poster_entity> listPosters1 = new ArrayList<>();
         ArrayList<Poster_entity> listPosters2 = new ArrayList<>();
         ArrayList<Poster_entity> listPosters3 = new ArrayList<>();
         ArrayList<Poster_entity> listPosters4 = new ArrayList<>();
-        ArrayList<Category> listgenk = new ArrayList<>();
-        listgenk.add(new Category("Đồ chơi số","R.drawable.dochoi",listPosters1));
-        listgenk.add(new Category("Sống","R.drawable.life",listPosters2));
-        listgenk.add(new Category("Mobile","R.drawable.mobile",listPosters3));
-        listgenk.add(new Category("Tin ICT","R.drawable.itc",listPosters4));
-        //
-        ArrayList<Category> listcafef = new ArrayList<>();
-        //
-        ArrayList<Category> listkenh14 = new ArrayList<>();
+        ArrayList<Poster_entity> listPosters5 = new ArrayList<>();
+        ArrayList<Poster_entity> listPosters6 = new ArrayList<>();
+        ArrayList<Poster_entity> listPosters7 = new ArrayList<>();
+        ArrayList<Poster_entity> listPosters8 = new ArrayList<>();
 
-
-        for (Category category: listgenk
-             ) {
-            for (Poster_entity pos: listroot
-                 ) {
-                if(category.getTitle().equals(pos.getCategory_poster())){
+        //kenh14
+        if(type.equals("kenh14")){
+            ArrayList<Category> listkenh14 = new ArrayList<>();
+            listkenh14.add(new Category("Xã hội",""+R.drawable.xahoi,listPosters1));
+            listkenh14.add(new Category("Star",""+R.drawable.fashion,listPosters2));
+            listkenh14.add(new Category("Đời sống",""+R.drawable.life,listPosters3));
+            listkenh14.add(new Category("Học đường",""+R.drawable.hocduong,listPosters4));
+            listkenh14.add(new Category("Sport",""+R.drawable.sport,listPosters5));
+            listkenh14.add(new Category("Thế Giới",""+R.drawable.life,listPosters6));
+            listkenh14.add(new Category("Musik",""+R.drawable.music,listPosters7));
+            listkenh14.add(new Category("Fashion",""+R.drawable.fashion,listPosters8));
+            for (Poster_entity pos:listroot
+                    ) {
+                if(listkenh14.get(0).getTitle().equals(pos.getCategory_poster())){
                     listPosters1.add(pos);
                 }
+                if(listkenh14.get(1).getTitle().equals(pos.getCategory_poster())){
+                    listPosters2.add(pos);
+                }
+                if(listkenh14.get(2).getTitle().equals(pos.getCategory_poster())){
+                    listPosters3.add(pos);
+                }if(listkenh14.get(3).getTitle().equals(pos.getCategory_poster())){
+                    listPosters4.add(pos);
+                }if(listkenh14.get(4).getTitle().equals(pos.getCategory_poster())){
+                    listPosters5.add(pos);
+                }if(listkenh14.get(5).getTitle().equals(pos.getCategory_poster())){
+                    listPosters6.add(pos);
+                }if(listkenh14.get(6).getTitle().equals(pos.getCategory_poster())){
+                    listPosters7.add(pos);
+                }if(listkenh14.get(7).getTitle().equals(pos.getCategory_poster())){
+                    listPosters8.add(pos);
+                }
             }
-
+            listSource.get(0).setSource_categories(listkenh14);
         }
 
-        listSource.add(new Source("genk","R.drawable.genk",listgenk));
-//        listSource.add(new Source("CafeF","R.drawable.cafef",listCafeF));
-//        listSource.add(new Source("VietnamNet","R.drawable.vietnamnet",listcafef));
-//        listSource.add(new Source("Kenh14","R.drawable.kenh",listkenh14));
+        // cafef
+        if(type.equals("cafef")){
+            ArrayList<Category> listcafef = new ArrayList<>();
+            listcafef.add(new Category("Sống",""+R.drawable.life,listPosters1));
+            listcafef.add(new Category("Thị trường",""+R.drawable.thitruong,listPosters2));
+            listcafef.add(new Category("Tài chính - ngân hàng",""+R.drawable.tcnh,listPosters3));
+            listcafef.add(new Category("Kinh tế vĩ mô - Đầu tư",""+R.drawable.ktvm,listPosters4));
+            listcafef.add(new Category("Thời sự",""+R.drawable.thoisu,listPosters5));
+            listcafef.add(new Category("Bất động sản",""+R.drawable.bds,listPosters6));
+            listcafef.add(new Category("Doanh nghiệp",""+R.drawable.doanhnghiep,listPosters7));
+            listcafef.add(new Category("Thị trường chứng khoán",""+R.drawable.thitruong,listPosters8));
+            for (Poster_entity pos:listroot
+                    ) {
+                if(listcafef.get(0).getTitle().equals(pos.getCategory_poster())){
+                    listPosters1.add(pos);
+                }
+                if(listcafef.get(1).getTitle().equals(pos.getCategory_poster())){
+                    listPosters2.add(pos);
+                }
+                if(listcafef.get(2).getTitle().equals(pos.getCategory_poster())){
+                    listPosters3.add(pos);
+                }if(listcafef.get(3).getTitle().equals(pos.getCategory_poster())){
+                    listPosters4.add(pos);
+                }if(listcafef.get(4).getTitle().equals(pos.getCategory_poster())){
+                    listPosters5.add(pos);
+                }if(listcafef.get(5).getTitle().equals(pos.getCategory_poster())){
+                    listPosters6.add(pos);
+                }if(listcafef.get(6).getTitle().equals(pos.getCategory_poster())){
+                    listPosters7.add(pos);
+                }if(listcafef.get(7).getTitle().equals(pos.getCategory_poster())){
+                    listPosters8.add(pos);
+                }
+            }
+            listSource.get(1).setSource_categories(listcafef);
+        }
+        // genk
+        if(type.equals("genk")){
+            ArrayList<Category> listgenk = new ArrayList<>();
+            listgenk.add(new Category("Đồ chơi số",""+R.drawable.toys,listPosters1));
+            listgenk.add(new Category("Sống",""+R.drawable.life,listPosters2));
+            listgenk.add(new Category("Mobile",""+R.drawable.mobile,listPosters3));
+            listgenk.add(new Category("Tin ICT",""+R.drawable.itc,listPosters4));
+            for (Poster_entity pos: listroot) {
+                if(listgenk.get(0).getTitle().equals(pos.getCategory_poster())){
+                    listPosters1.add(pos);
+                }
+                if(listgenk.get(1).getTitle().equals(pos.getCategory_poster())){
+                    listPosters2.add(pos);
+                }
+                if(listgenk.get(2).getTitle().equals(pos.getCategory_poster())){
+                    listPosters3.add(pos);
+                }if(listgenk.get(3).getTitle().equals(pos.getCategory_poster())){
+                    listPosters4.add(pos);
+                }
+            }
+            listSource.get(2).setSource_categories(listgenk);
+        }
 
 
-//        //Fake data lisposters
-//        listPosters1.add(new Poster_entity(R.drawable.download+"","Người đàn ông nuôi hàng trăm con rồng Nam Mỹ ở Sài gòn","11h Trước",
-//                "Trong số các nạn nhân bị thương, có 2 người bị thương nặng đang được " +
-//                "cấp cứu tại Bệnh viện Nhân dân Gia Định. Đứng bên ngoài phòng cấp cứu, bà Trần Mỹ Lệ (63 tuổi, quận Bình Thạnh) mắt đỏ hoe, chắp tay cầu nguyện cho con " +
-//                "bà là anh H.H.Đ.(42 tuổi) tai qua nạn khỏi. Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo anh Đ đang được cấp cứu tại Bệnh viện Nhân dân Gia " +
-//                "Định “Chạy đến bệnh viện thì y tá nói con tôi bị gãy chân, bị thương nặng ở cổ." +
-//                " Khi đó, tôi thấy nó nằm trên băng ca nhưng người lờ đờ lắm. Nó thì thào nói con không biết gì cả”, bà Lệ nói trong lo lắng."));
-//        listPosters1.add(new Poster_entity(R.drawable.news+"","Hôm nay tôi buồn-1 ","11h Trước","abc"));
-//        listPosters1.add(new Poster_entity(R.drawable.news+"","Cuối tuần đi đâu chơi-1 ","11h Trước","mắt đỏ hoe, chắp tay cầu nguyện cho con"));
-//        listPosters1.add(new Poster_entity(R.drawable.news+"","Cao thủ liên minh giải nghệ-1 ","11h Trước","Bệnh viện Nhân dân Gia"));
-//
-//
-//        listPosters2.add(new Poster_entity(R.drawable.news+"","Còn điều gì chưa nói vs nhau-2 ","11h Trước","Người đàn ông nuôi hàng trăm con rồng"));
-//        listPosters2.add(new Poster_entity(R.drawable.news+"","Cách tán gái từ đại gia-2 ","11h Trước","bà là anh H.H.Đ.(42 tuổi) tai qua nạn khỏi. Theo bà Lệ,"));
-//        listPosters2.add(new Poster_entity(R.drawable.news+"","Bảo vệ đôi mắt của bạn-2 ","11h Trước","Đứng bên ngoài phòng cấp cứu, bà Trần Mỹ Lệ"));
-//        listPosters2.add(new Poster_entity(R.drawable.news+"","Bao giờ em mới cưới-2","11h Trước","63 tuổi, quận Bình Thạnh"));
-//
-//        listPosters3.add(new Poster_entity(R.drawable.news+"","Ánh sang phía sau còn đường đen-3","11h Trước","Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo anh Đ đang được cấp cứu tại Bệnh viện Nhân dân Gia"));
-//        listPosters3.add(new Poster_entity(R.drawable.news+"","Lee sin best mù-3","11h Trước","Theo bà Lệ, rạng sáng nay bà nhận được điện thoại thông báo anh Đ đang được cấp cứu tại Bệnh viện Nhân dân Gia"));
-//
-//        // Fake data catogeries
-//        listgenk.add(new Category("Tin Hot","bcd",listPosters1));
-//        listgenk.add(new Category("Kinh Tế","bcd",listPosters2));
-//        listgenk.add(new Category("Nhân Văn","bcd",listPosters3));
-//
-//        listcafef.add(new Category("Sức Khỏe","bcd",listPosters1));
-//        listcafef.add(new Category("Tình dục","bcd",listPosters2));
-//        listcafef.add(new Category("Đời sống","bcd",listPosters3));
-//
-//
-//        listkenh14.add(new Category("Xe hơi","bcd",listPosters1));
-//        listkenh14.add(new Category("Thời sự","bcd",listPosters2));
-//        listkenh14.add(new Category("Giải trí","bcd",listPosters3));
 
-
-
+        //Fake data source
     }
 
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(getContext(),"fragment source click",Toast.LENGTH_LONG).show();
 
-    }
 
     class MyAsyncTask extends AsyncTask<Void, Void, Void> {
        private ProgressDialog dialog;
+       private String type;
+       public  MyAsyncTask(String type){
+           this.type=type;
+       }
         @Override
         protected Void doInBackground(Void... voids) {
             try {
                 // set data source
-                SetDataCategories();
-
+                SetDataCategories(type);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -197,14 +236,15 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //dialog = new ProgressDialog(getActivity());
-            //dialog.show();
+            dialog = new ProgressDialog(getActivity());
+            dialog.show();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            //dialog.dismiss();
+            dialog.dismiss();
+            ((FragmentHomePage)getParentFragment()).viewPager.setCurrentItem(0);
         }
     }
 }

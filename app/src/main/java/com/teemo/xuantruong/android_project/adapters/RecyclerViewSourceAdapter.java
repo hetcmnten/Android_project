@@ -1,6 +1,9 @@
 package com.teemo.xuantruong.android_project.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import com.teemo.xuantruong.android_project.R;
 import com.teemo.xuantruong.android_project.entity.Source;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class RecyclerViewSourceAdapter extends RecyclerView.Adapter<RecyclerViewSourceAdapter.MyViewHolder> {
@@ -41,15 +45,23 @@ public class RecyclerViewSourceAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.tvtextNew.setText(listSources.get(position).getSource_title());
-        holder.imageNew.setImageResource(R.drawable.download);
+        holder.imageNew.setImageResource(Integer.parseInt(listSources.get(position).getSource_img()));
+
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                FlagCategorySource.flagSource = position;
-//                FlagCategorySource.flaCategory = 0;
-//                Toast.makeText(mContext, "Source" + position, Toast.LENGTH_LONG).show();
+//                for(View tempItemView : itemViewList) {
+//                    /** navigate through all the itemViews and change color
+//                     of selected view to colorSelected and rest of the views to colorDefault **/
+//                    if(itemViewList.get(holder.getAdapterPosition()) == tempItemView) {
+//                        tempItemView.setBackgroundColor(Color.GRAY);
+//                    }
+//                    else{
+//                        tempItemView.setBackgroundColor(Color.WHITE);
+//                    }
+//                }
 //            }
 //        });
     }

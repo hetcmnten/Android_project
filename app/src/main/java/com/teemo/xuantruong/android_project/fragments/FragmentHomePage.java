@@ -49,7 +49,7 @@ public class FragmentHomePage extends Fragment implements Runnable {
                 int flagCurrentCategory = FlagCategorySource.flaCategory;
                 // when change source -> change category
                 if (flagSource != flagCurrentSource) {
-                    adapter.fragmentCategories.listCat = adapter.fragmentSource.listSource.get(flagCurrentSource).getSource_categories();
+                    adapter.fragmentCategories.listCat = FragmentSources.listSource.get(flagCurrentSource).getSource_categories();
                     adapter.fragmentListNews.listNews = adapter.fragmentCategories.listCat.get(0).getListPosters();
                     //update adapter list category
                     adapter.fragmentCategories.recyclerViewAdapter.listCate = adapter.fragmentCategories.listCat;
@@ -88,8 +88,8 @@ public class FragmentHomePage extends Fragment implements Runnable {
             }
         });
 
-//       Bundle bundle = getArguments().getBundle("FirstSource");
-    //   adapter.fragmentSource.listSource = (ArrayList<Source>) bundle.getSerializable("FirstSource");
+//       Bundle bundle = getArguments().getBundle("listSource");
+    //   adapter.fragmentSource.listSource = (ArrayList<Source>) bundle.getSerializable("listSource");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
         tabs.setupWithViewPager(viewPager);

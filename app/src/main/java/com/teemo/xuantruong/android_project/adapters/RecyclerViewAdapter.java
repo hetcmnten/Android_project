@@ -1,6 +1,7 @@
 package com.teemo.xuantruong.android_project.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -22,6 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context mContext;
     public ArrayList<Category> listCate;
     CustomItemClickListener listener;
+    ArrayList<View> itemViewList = new ArrayList<>();
 
     public RecyclerViewAdapter(Context mContext, ArrayList<Category> listCate,CustomItemClickListener listener ) {
         this.mContext = mContext;
@@ -34,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
        View v;
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         v = layoutInflater.inflate(R.layout.cardviewcategory,parent,false);
+        itemViewList.add(v);
         final MyViewHolder mViewHolder = new MyViewHolder(v);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,15 +48,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.tvtextNew.setText(listCate.get(position).getTitle());
-        holder.imageNew.setImageResource(R.drawable.download);
+        holder.imageNew.setImageResource(Integer.parseInt(listCate.get(position).getImageName()));
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                FlagCategorySource.flaCategory=position;
-//                Toast.makeText(mContext,"Categories"+position,Toast.LENGTH_LONG).show();
-//
+//                for(View tempItemView : itemViewList) {
+//                    /** navigate through all the itemViews and change color
+//                     of selected view to colorSelected and rest of the views to colorDefault **/
+//                    if(itemViewList.get(holder.getAdapterPosition()) == tempItemView) {
+//                        tempItemView.setBackgroundColor(Color.GRAY);
+//                    }
+//                    else{
+//                        tempItemView.setBackgroundColor(Color.WHITE);
+//                    }
+//                }
 //            }
 //        });
     }

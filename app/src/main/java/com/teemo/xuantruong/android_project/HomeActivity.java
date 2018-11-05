@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         Bundle getFirstSource = getIntent().getExtras();
         ArrayList<Source> getSource = new ArrayList<>();
-       // getSource = ( ArrayList<Source>)getFirstSource.getSerializable("FirstSource");
+       // getSource = ( ArrayList<Source>)getFirstSource.getSerializable("listSource");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();
     }
 

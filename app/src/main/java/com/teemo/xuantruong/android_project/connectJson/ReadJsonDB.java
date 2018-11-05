@@ -11,11 +11,15 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class ReadJsonDB {
+    private String type;
     // edit = ipconfig
     final String serverHost = "192.168.1.11";
     Socket socketOfClient = null;
     BufferedWriter os = null;
     BufferedReader is = null;
+    public ReadJsonDB(String type){
+        this.type=type;
+    }
     public String ConnectJson() {
         String responseLine= null;
         try {
@@ -31,7 +35,7 @@ public class ReadJsonDB {
             is = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
 
             // Ghi dữ liệu vào luồng đầu ra của Socket tại Client. get id
-            os.write("genk");
+            os.write(type);
             os.newLine();
             os.flush();
 

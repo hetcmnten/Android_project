@@ -53,7 +53,8 @@ public class ListNewsAdapter extends BaseAdapter {
             TextView txtTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             TextView txtDescription = (TextView) itemView.findViewById(R.id.tvTime);
             imageView.setImageResource(R.drawable.news);
-            txtTitle.setText(selectedNews.getTitle_poster().substring(0, 65) + "...");
+            int max = selectedNews.getTitle_poster().length();
+            txtTitle.setText(selectedNews.getTitle_poster().substring(0, max < 70 ? max : 70) + "...");
             txtDescription.setText(selectedNews.getTime_poster());
             ConvertBase64 convertBase64 = new ConvertBase64();
             imageView.setImageBitmap(convertBase64.StringToBitMap(selectedNews.getImage_poster()));
