@@ -17,7 +17,15 @@ public class Poster_entity implements Serializable {
     public Poster_entity() {
 
     }
-
+    public Poster_entity(String newsType, String title,  String category, String content, String imgConverted, String author, String publishTime) {
+        this.type_poster = newsType;
+        this.title_poster = title;
+        this.category_poster = category;
+        this.content_poster = content;
+        this.image_poster = imgConverted;
+        this.author_poster = author;
+        this.time_poster = publishTime;
+    }
     public Poster_entity(String id_poster, String type_poster, String title_poster, String link_poster, String category_poster, String content_poster, String image_poster, String author_poster, String time_poster) {
         this.id_poster = id_poster;
         this.type_poster = type_poster;

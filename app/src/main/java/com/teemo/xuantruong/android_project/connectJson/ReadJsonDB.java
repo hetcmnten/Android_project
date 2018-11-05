@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 
 public class ReadJsonDB {
     // edit = ipconfig
-    final String serverHost = "192.168.1.3";
+    final String serverHost = " 172.20.10.6";
     Socket socketOfClient = null;
     BufferedWriter os = null;
     BufferedReader is = null;
@@ -31,13 +31,12 @@ public class ReadJsonDB {
             is = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
 
             // Ghi dữ liệu vào luồng đầu ra của Socket tại Client. get id
-            os.write("21141");
+            os.write("genk");
             os.newLine();
             os.flush();
 
             // Đọc dữ liệu trả lời từ phía server
             // Bằng cách đọc luồng đầu vào của Socket tại Client.
-
 
             responseLine = is.readLine();
             os.close();
