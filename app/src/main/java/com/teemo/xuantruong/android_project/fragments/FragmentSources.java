@@ -1,5 +1,6 @@
 package com.teemo.xuantruong.android_project.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,12 +34,15 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
     public ArrayList<Source> listSource;
     public FragmentSources() {
 
-        SetDataCategories();
+//        SetDataCategories();
+        MyAsyncTask myAsyncTask = new MyAsyncTask();
+        myAsyncTask.execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_source, container, false);
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_source);
         RecyclerViewSourceAdapter recyclerViewAdapter = new RecyclerViewSourceAdapter(getActivity(), listSource, new CustomItemClickListener() {
             @Override
@@ -54,6 +58,7 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
 
         return view;
     }
+
 
     private ArrayList<Poster_entity> readJson() throws Exception {
 
@@ -169,10 +174,24 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
 
     }
 
-
     @Override
     public void onClick(View v) {
         Toast.makeText(getContext(),"fragment source click",Toast.LENGTH_LONG).show();
 
+    }
+
+    class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                // set data source
+                SetDataCategories();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }
