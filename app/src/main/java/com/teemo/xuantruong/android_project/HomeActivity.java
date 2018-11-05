@@ -16,20 +16,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Fragment;
 
+import com.teemo.xuantruong.android_project.entity.Source;
 import com.teemo.xuantruong.android_project.fragments.FragmentHomePage;
+import com.teemo.xuantruong.android_project.fragments.FragmentSources;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private static int SPLASH_TIME_OUT= 2000;
     public TabLayout tabLayout;
     public AppBarLayout appBarLayout;
     public ViewPager viewPager;
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private NavigationView ndrawer;
+    public NavigationView ndrawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +49,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
 
         ndrawer = (NavigationView) findViewById(R.id.nav_view);
+
+//        todo
+        View hView =  ndrawer.getHeaderView(0);
+        TextView nav_user = (TextView)hView.findViewById(R.id.user_name);
+        nav_user.setText("123323");
+
         ndrawer.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(HomeActivity.this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        Bundle getFirstSource = getIntent().getExtras();
+        ArrayList<Source> getSource = new ArrayList<>();
+       // getSource = ( ArrayList<Source>)getFirstSource.getSerializable("FirstSource");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentHomePage()).commit();
     }
 

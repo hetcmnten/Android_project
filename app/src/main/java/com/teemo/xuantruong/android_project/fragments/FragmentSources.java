@@ -1,5 +1,6 @@
 package com.teemo.xuantruong.android_project.fragments;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,12 +32,14 @@ import java.util.List;
 
 public class FragmentSources extends Fragment implements View.OnClickListener {
     View view;
-    public ArrayList<Source> listSource;
+    public static ArrayList<Source> FirstSource= new ArrayList<>();
+    public ArrayList<Source> listSource = new ArrayList<>();
     public FragmentSources() {
-
+        listSource = FirstSource;
 //        SetDataCategories();
-        MyAsyncTask myAsyncTask = new MyAsyncTask();
-        myAsyncTask.execute();
+//        MyAsyncTask myAsyncTask = new MyAsyncTask();
+//        myAsyncTask.execute();
+
     }
 
     @Override
@@ -181,7 +184,7 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
     }
 
     class MyAsyncTask extends AsyncTask<Void, Void, Void> {
-
+       private ProgressDialog dialog;
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -192,6 +195,19 @@ public class FragmentSources extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //dialog = new ProgressDialog(getActivity());
+            //dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //dialog.dismiss();
         }
     }
 }

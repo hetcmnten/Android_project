@@ -1,8 +1,9 @@
 package com.teemo.xuantruong.android_project.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Source {
+public class Source implements Serializable {
     private int source_id;
     private String source_title;
     private String source_img;

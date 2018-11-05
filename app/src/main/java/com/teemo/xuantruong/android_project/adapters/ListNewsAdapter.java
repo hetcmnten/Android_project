@@ -47,14 +47,16 @@ public class ListNewsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = view;
-        Poster_entity selectedNews = listNews.get(i);
-        itemView = (itemView == null) ? inflater.inflate(R.layout.customlayout,null) : itemView;
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        TextView txtTitle = (TextView)itemView.findViewById(R.id.tvTitle);
-        TextView txtDescription = (TextView)itemView.findViewById(R.id.tvTime);
-        imageView.setImageResource(R.drawable.news);
-        txtTitle.setText(selectedNews.getTitle_poster());
-        txtDescription.setText(selectedNews.getTime_poster());
-        return itemView;
+            Poster_entity selectedNews = listNews.get(i);
+            itemView = (itemView == null) ? inflater.inflate(R.layout.customlayout, null) : itemView;
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            TextView txtTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            TextView txtDescription = (TextView) itemView.findViewById(R.id.tvTime);
+            imageView.setImageResource(R.drawable.news);
+            txtTitle.setText(selectedNews.getTitle_poster().substring(0, 90) + "...");
+            txtDescription.setText(selectedNews.getTime_poster());
+            ConvertBase64 convertBase64 = new ConvertBase64();
+            imageView.setImageBitmap(convertBase64.StringToBitMap(selectedNews.getImage_poster()));
+            return itemView;
     }
 }

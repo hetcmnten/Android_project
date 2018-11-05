@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        android:orientation="vertical">
       <ImageButton
           android:id="@+id/btnImage"
           android:layout_width="match_parent"
-          android:layout_height="160dp"
+          android:layout_height="150dp"
           android:scaleType="centerCrop"
           android:background="#2d2d2d"
           android:src="@drawable/download"/>
@@ -19,14 +20,13 @@
       <TextView
           android:id="@+id/txtTitle1"
           android:textColor="#2d2d2d"
-          android:textSize="20dp"
+          android:textSize="18dp"
           android:padding="5dp"
-          android:layout_marginTop="160dp"
           android:layout_gravity="center"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:text="Tran Van Phong Fpt University "/>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listNews"

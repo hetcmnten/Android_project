@@ -20,6 +20,9 @@ import com.teemo.xuantruong.android_project.adapters.ListNewsAdapter;
 import com.teemo.xuantruong.android_project.adapters.RecyclerViewAdapter;
 import com.teemo.xuantruong.android_project.adapters.ViewPageAdapter;
 import com.teemo.xuantruong.android_project.entity.FlagCategorySource;
+import com.teemo.xuantruong.android_project.entity.Source;
+
+import java.util.ArrayList;
 
 public class FragmentHomePage extends Fragment implements Runnable {
     private AppBarLayout appBar;
@@ -29,8 +32,7 @@ public class FragmentHomePage extends Fragment implements Runnable {
     static int flagCategory = 0;
 
     public FragmentHomePage() {
-        Thread thread = new Thread(this);
-        thread.start();
+
     }
 
     @Nullable
@@ -85,6 +87,9 @@ public class FragmentHomePage extends Fragment implements Runnable {
                 Log.d("Tab", "onTabReselected");
             }
         });
+
+//       Bundle bundle = getArguments().getBundle("FirstSource");
+    //   adapter.fragmentSource.listSource = (ArrayList<Source>) bundle.getSerializable("FirstSource");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
         tabs.setupWithViewPager(viewPager);
