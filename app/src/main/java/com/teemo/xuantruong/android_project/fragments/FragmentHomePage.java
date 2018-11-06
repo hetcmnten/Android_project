@@ -69,22 +69,18 @@ public class FragmentHomePage extends Fragment implements Runnable {
                         flagCategory = flagCurrentCategory;
                     }
                 }
-                // viewPager.setCurrentItem(tab.getPosition());
-                Toast.makeText(getContext(), "slected", Toast.LENGTH_SHORT).show();
-                Log.d("Tab", "slected");
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Toast.makeText(getContext(), "onTabUnselected", Toast.LENGTH_SHORT).show();
-                Log.d("Tab", "onTabUnselected");
+
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 viewPager.getAdapter().notifyDataSetChanged();
-                Toast.makeText(getContext(), "onTabReselected", Toast.LENGTH_SHORT).show();
-                Log.d("Tab", "onTabReselected");
+
             }
         });
 

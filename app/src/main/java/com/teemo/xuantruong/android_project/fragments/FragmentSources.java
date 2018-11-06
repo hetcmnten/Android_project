@@ -118,8 +118,8 @@ public class FragmentSources extends Fragment {
         //kenh14
         if(type.equals("kenh14")){
             ArrayList<Category> listkenh14 = new ArrayList<>();
-            listkenh14.add(new Category("Xã hội",""+R.drawable.xahoi,listPosters1));
             listkenh14.add(new Category("Star",""+R.drawable.fashion,listPosters2));
+            listkenh14.add(new Category("Xã hội",""+R.drawable.xahoi,listPosters1));
             listkenh14.add(new Category("Đời sống",""+R.drawable.life,listPosters3));
             listkenh14.add(new Category("Học đường",""+R.drawable.hocduong,listPosters4));
             listkenh14.add(new Category("Sport",""+R.drawable.sport,listPosters5));
@@ -129,10 +129,10 @@ public class FragmentSources extends Fragment {
             for (Poster_entity pos:listroot
                     ) {
                 if(listkenh14.get(0).getTitle().equals(pos.getCategory_poster())){
-                    listPosters1.add(pos);
+                    listPosters2.add(pos);
                 }
                 if(listkenh14.get(1).getTitle().equals(pos.getCategory_poster())){
-                    listPosters2.add(pos);
+                    listPosters1.add(pos);
                 }
                 if(listkenh14.get(2).getTitle().equals(pos.getCategory_poster())){
                     listPosters3.add(pos);
@@ -237,6 +237,7 @@ public class FragmentSources extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog = new ProgressDialog(getActivity());
+            dialog.setMessage("process.....");
             dialog.show();
         }
 

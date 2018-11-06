@@ -154,6 +154,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if(v.getId()== R.id.logout)
         {
             LoginManager.getInstance().logOut();
+            // logout in formation login facbook in  sharedpreferences
+            editor.putString("id", "");
+            editor.putString("name", "User name");
+            editor.commit();
+            // go home page
+            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+            intent.putExtra("id","");
+            intent.putExtra("name","");
+            startActivity(intent);
         }
     }
     //  set login

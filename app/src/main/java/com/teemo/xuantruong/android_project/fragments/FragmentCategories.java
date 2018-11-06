@@ -41,7 +41,6 @@ public class FragmentCategories extends Fragment {
             public void onItemClick(View v, int position) {
                 FlagCategorySource.flaCategory=position;
                 ((FragmentHomePage)getParentFragment()).viewPager.setCurrentItem(0);
-                Toast.makeText(getActivity(),"Categories"+position,Toast.LENGTH_LONG).show();
             }
         });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

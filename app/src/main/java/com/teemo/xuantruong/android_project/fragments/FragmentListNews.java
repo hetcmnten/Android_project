@@ -47,17 +47,18 @@ public class FragmentListNews extends Fragment implements Serializable {
         View view = inflater.inflate(R.layout.fragment_listpost,container,false);
         txtTile1 = (TextView) view.findViewById(R.id.txtTitle1);
         ListViewNews = (ListView) view.findViewById(R.id.listNews);
-        txtTile1.setText(listNews.get(0).getTitle_poster().substring(0,60)+"...");
+        int max = listNews.get(0).getTitle_poster().length();
+        txtTile1.setText(listNews.get(0).getTitle_poster().substring(0,max<70? max :70)+"...");
         ConvertBase64 convertBase64 = new ConvertBase64();
         imgHeader = view.findViewById(R.id.btnImage);
         imgHeader.setImageBitmap(convertBase64.StringToBitMap(listNews.get(0).getImage_poster()));
-        for (Poster_entity pe : listNews){
-            if(i!=0)
-            listNewsLV.add(pe);
-            i++;
-        }
+//        for (Poster_entity pe : listNews){
+//            if(i!=0)
+//            listNewsLV.add(pe);
+//            i++;
+//        }
 
-        news = new ListNewsAdapter(listNewsLV,getActivity());
+        news = new ListNewsAdapter(listNews,getActivity());
         ListViewNews.setAdapter(news);
         ListViewNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,31 +68,33 @@ public class FragmentListNews extends Fragment implements Serializable {
                 int realPosition=0;
                 ArrayList<Poster_entity> selectListPost = new ArrayList<>();
 
-                if((position)%3==0){
-                    for (int i = position; i <position+3 ; i++) {
-                        if(i>=sizePost)
-                            break;
-                        selectListPost.add(listNews.get(i));
-                    }
-                    realPosition=0;
-                }else if((position)%3==2){
-                    for (int i = position-2; i <=position ; i++) {
-                        selectListPost.add(listNews.get(i));
-                    }
-                    realPosition=2;
-                }else {
-                    int from = position/3;
-
-                    for (int i = from*3; i <(from+1)*3 ; i++) {
-                        if(i>=sizePost)
-                            break;
-                        selectListPost.add(listNews.get(i));
-                    }
-                    realPosition=1;
-                }
+//                if((position)%3==0){
+//                    for (int i = position; i <position+3 ; i++) {
+//                        if(i>=sizePost)
+//                            break;
+//                        selectListPost.add(listNews.get(i));
+//                    }
+//                    realPosition=0;
+//                }else if((position)%3==2){
+//                    for (int i = position-2; i <=position ; i++) {
+//                        selectListPost.add(listNews.get(i));
+//                    }
+//                    realPosition=2;
+//                }else {
+//                    int from = position/3;
+//
+//                    for (int i = from*3; i <(from+1)*3 ; i++) {
+//                        if(i>=sizePost)
+//                            break;
+//                        selectListPost.add(listNews.get(i));
+//                    }
+//                    realPosition=1;
+//                }
+                realPosition=0;
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), Poster.class);
                 intent.putExtra("position", realPosition);
+                selectListPost.add(listNews.get(position));
                 Poster.selectListPost = selectListPost;
                 startActivity(intent);
             }

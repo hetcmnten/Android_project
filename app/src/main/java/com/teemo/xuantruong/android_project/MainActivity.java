@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Category> listcafef = new ArrayList<>();
         //
         ArrayList<Category> listkenh14 = new ArrayList<>();
-        listkenh14.add(new Category("Xã hội",""+R.drawable.xahoi,listPosters1));
         listkenh14.add(new Category("Star",""+R.drawable.fashion,listPosters2));
+        listkenh14.add(new Category("Xã hội",""+R.drawable.xahoi,listPosters1));
         listkenh14.add(new Category("Đời sống",""+R.drawable.life,listPosters3));
         listkenh14.add(new Category("Học đường",""+R.drawable.hocduong,listPosters4));
         listkenh14.add(new Category("Sport",""+R.drawable.sport,listPosters5));
@@ -100,10 +100,10 @@ public class MainActivity extends AppCompatActivity {
             for (Poster_entity pos:listroot
                  ) {
                 if(listkenh14.get(0).getTitle().equals(pos.getCategory_poster())){
-                    listPosters1.add(pos);
+                    listPosters2.add(pos);
                 }
                 if(listkenh14.get(1).getTitle().equals(pos.getCategory_poster())){
-                    listPosters2.add(pos);
+                    listPosters1.add(pos);
                 }
                 if(listkenh14.get(2).getTitle().equals(pos.getCategory_poster())){
                     listPosters3.add(pos);
@@ -148,15 +148,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(MainActivity.this);
-            dialog.setMessage("process.....");
-            dialog.show();
+//            dialog = new ProgressDialog(MainActivity.this);
+//            dialog.setMessage("process.....");
+//            dialog.show();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            dialog.dismiss();
+//            dialog.dismiss();
         }
     }
 

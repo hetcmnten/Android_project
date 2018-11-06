@@ -134,7 +134,6 @@ public class FragmentPoster extends Fragment {
         filePicture = (ProfilePictureView) view.findViewById(R.id.picture);
         // get id in sharedpreferences
         filePicture.setProfileId(sharedpreferences.getString("id", ""));
-        GetDataFromSetting();
         return view;
     }
 
@@ -273,6 +272,7 @@ public class FragmentPoster extends Fragment {
         protected Void doInBackground(Void... voids) {
             try {
                 // get text link mp3
+                GetDataFromSetting();
                 getLinkMp3();
             } catch (Exception e) {
                 e.printStackTrace();
