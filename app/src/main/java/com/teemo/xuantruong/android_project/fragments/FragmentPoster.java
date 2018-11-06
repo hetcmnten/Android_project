@@ -1,6 +1,7 @@
 package com.teemo.xuantruong.android_project.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -117,7 +118,6 @@ public class FragmentPoster extends Fragment {
             public void onClick(View v) {
                 if(!mp.isPlaying()){
                     mp.start();
-                    startFadeIn();
                     changeplayerSpeed(Float.parseFloat("1"));
                     btnPlay.setBackgroundResource(R.drawable.pause);
                 }else{
@@ -171,40 +171,6 @@ public class FragmentPoster extends Fragment {
         return timelable;
     }
 
-    float volume = 0;
-
-    private void startFadeIn(){
-        final int FADE_DURATION = 750; //The duration of the fade
-        //The amount of time between volume changes. The smaller this is, the smoother the fade
-        final int FADE_INTERVAL = 250;
-        final int MAX_VOLUME = 2; //The volume will increase from 0 to 1
-        int numberOfSteps = FADE_DURATION/FADE_INTERVAL; //Calculate the number of fade steps
-        //Calculate by how much the volume changes each step
-        final float deltaVolume = MAX_VOLUME / (float)numberOfSteps;
-
-        //Create a new Timer and Timer task to run the fading outside the main UI thread
-        final Timer timer = new Timer(true);
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                fadeInStep(deltaVolume); //Do a fade step
-                //Cancel and Purge the Timer if the desired volume has been reached
-                if(volume>=1f){
-                    timer.cancel();
-                    timer.purge();
-                }
-            }
-        };
-
-        timer.schedule(timerTask,FADE_INTERVAL,FADE_INTERVAL);
-    }
-
-    private void fadeInStep(float deltaVolume){
-        mp.setVolume(volume, volume);
-        volume += deltaVolume;
-
-    }
-
     private void changeplayerSpeed(float speed) {
         // this checks on API 23 and up
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -218,8 +184,6 @@ public class FragmentPoster extends Fragment {
         Boolean checkSpeaker = sharedPref.getBoolean("checkedSpeaker",false);
         speed = sharedPref.getInt("Speed",0);
         voice = sharedPref.getString("Voice","");
-
-        Toast.makeText(getContext(),checkSpeaker+"/"+speed+"/"+voice+"/",Toast.LENGTH_LONG).show();
     }
 
 
@@ -304,7 +268,7 @@ public class FragmentPoster extends Fragment {
     }
     private Bitmap bm;
     class MyAsyncTask extends AsyncTask<Void, Void, Void>{
-
+        private ProgressDialog dialog;
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -317,9 +281,16 @@ public class FragmentPoster extends Fragment {
         }
         // process  image in databse
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(getActivity());
+            dialog.show();
+        }
+
+        @Override
         protected void onPostExecute(Void aVoid) {
-            // read image with base64
             super.onPostExecute(aVoid);
+            dialog.dismiss();
         }
     }
 
